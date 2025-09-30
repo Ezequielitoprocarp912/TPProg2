@@ -1,0 +1,105 @@
+#include <iostream>
+#include <string>
+#include <cstring>
+#include "clsVehiculo.h"
+#include "clsFecha.h"
+
+///CONSTRUCTOR DEFAULT
+clsVehiculo::clsVehiculo()
+{
+    strcpy(_numPatente,"SIN NUMERO PATENTE");
+    strcpy(_descripcionFalla,"SIN FALLA");
+    strcpy(_marca,"SIN MARCA");
+    _tipoVehiculo = '0';
+    _ingreso=clsFecha();
+
+}
+
+///CONSTRUCTOR CON PARAMETROS
+clsVehiculo::clsVehiculo(const char* patente , const char* descFalla , const char* marca , clsFecha fecha, char tipoVehiculo)
+{
+    strcpy(_numPatente,patente);
+    strcpy(_descripcionFalla,descFalla);
+    strcpy(_marca,marca);
+    _ingreso = fecha;
+    _tipoVehiculo = tipoVehiculo;
+}
+
+///SETTERS
+void clsVehiculo::setNumeroPatente(const char* numPatente)
+{
+    ///VALIDACION
+    if (strlen(numPatente) >= 6 && strlen(numPatente) <= 7 )
+    {
+        strcpy(_numPatente, numPatente);
+    }
+    else
+    {
+        strcpy(_numPatente, "PATENTE NO CARGADA");
+    }
+}
+
+void clsVehiculo::setFalla(const char* falla)
+{
+    ///VALIDACION
+    if (strlen(falla) >= 1 && strlen(falla) <= 100 )
+    {
+        strcpy(_descripcionFalla, falla);
+    }
+    else
+    {
+        strcpy(_descripcionFalla, "FALLA NO CARGADA");
+    }
+}
+
+void clsVehiculo::setMarca(const char* marca)
+{
+    ///VALIDACION
+    if (strlen(marca) >= 4 && strlen(marca) <= 20 )
+    {
+        strcpy(_marca, marca);
+    }
+    else
+    {
+        strcpy(_marca, "MARCA SIN CARGAR");
+    }
+}
+
+void clsVehiculo::setIngreso(clsFecha fecha)
+{
+    _ingreso = fecha;
+}
+
+void clsVehiculo::setTipoVehiculo(char tipoVehiculo)
+{
+   _tipoVehiculo = tipoVehiculo;
+}
+
+///GETTERS
+const char* clsVehiculo::getNumeroPatente()
+{
+    return _numPatente;
+}
+
+const char* clsVehiculo::getMarca()
+{
+    return _marca;
+}
+
+const char* clsVehiculo::getDescripcion()
+{
+    return _descripcionFalla;
+}
+
+std::string clsVehiculo::getIngreso()
+{
+    return _ingreso.toString();
+}
+
+char clsVehiculo::getTipoVehiculo()
+{
+    return _tipoVehiculo;
+}
+
+
+

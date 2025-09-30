@@ -1,0 +1,113 @@
+# depslib dependency file v1.0
+1758826701 source:c:\users\agust\desktop\clase 1\tallermecanico\clscliente.cpp
+
+1758828916 source:c:\users\agust\desktop\clase 1\tallermecanico\clsvehiculo.cpp
+	<iostream>
+	<string>
+	<cstring>
+	"clsVehiculo.h"
+	"clsFecha.h"
+
+1758828021 source:c:\users\agust\desktop\clase 1\tallermecanico\main.cpp
+	<iostream>
+
+1758827903 source:c:\users\agust\desktop\clase 1\tallermecanico\clsfecha.cpp
+	<iostream>
+	"clsFecha.h"
+
+1758827848 c:\users\agust\desktop\clase 1\tallermecanico\clsfecha.h
+	<iostream>
+
+1758828987 c:\users\agust\desktop\clase 1\tallermecanico\clsvehiculo.h
+	"clsFecha.h"
+
+1758920604 source:c:\users\usuario\desktop\utn 2 cuatri 2025\proyectos\tallermecanico\clsfecha.cpp
+	<iostream>
+	"clsFecha.h"
+
+1758920604 c:\users\usuario\desktop\utn 2 cuatri 2025\proyectos\tallermecanico\clsfecha.h
+	<iostream>
+
+1758924390 source:c:\users\usuario\desktop\utn 2 cuatri 2025\proyectos\tallermecanico\clsvehiculo.cpp
+	<iostream>
+	<string>
+	<cstring>
+	"clsVehiculo.h"
+	"clsFecha.h"
+
+1758923238 c:\users\usuario\desktop\utn 2 cuatri 2025\proyectos\tallermecanico\clsvehiculo.h
+	"clsFecha.h"
+
+1758920604 source:c:\users\usuario\desktop\utn 2 cuatri 2025\proyectos\tallermecanico\main.cpp
+	<iostream>
+
+1758934614 source:c:\users\usuario\desktop\utn 2 cuatri 2025\proyectos\tallermecanico\clscliente.cpp
+	<iostream>
+	<string>
+	<cstring>
+	"clsCliente.h"
+
+1758934593 c:\users\usuario\desktop\utn 2 cuatri 2025\proyectos\tallermecanico\clscliente.h
+
+1758935026 source:c:\users\usuario\desktop\utn 2 cuatri 2025\proyectos\tallermecanico\clsgestorclientes.cpp
+	<iostream>
+	<cstring>
+	<string>
+	<cstdio>
+	"clsCliente.h"
+	"clsGestorClientes.h"
+
+1758934593 c:\users\usuario\desktop\utn 2 cuatri 2025\proyectos\tallermecanico\clsgestorclientes.h
+	"clsCliente.h"
+
+1759153894 source:c:\users\seren\onedrive\escritorio\prog2 tobi\tallermecanico\clscliente.cpp
+	<iostream>
+	<string>
+	<cstring>
+	"clsCliente.h"
+
+1759153894 c:\users\seren\onedrive\escritorio\prog2 tobi\tallermecanico\clscliente.h
+
+1759153894 source:c:\users\seren\onedrive\escritorio\prog2 tobi\tallermecanico\clsfecha.cpp
+	<iostream>
+	"clsFecha.h"
+
+1759153894 c:\users\seren\onedrive\escritorio\prog2 tobi\tallermecanico\clsfecha.h
+	<iostream>
+
+1759153894 source:c:\users\seren\onedrive\escritorio\prog2 tobi\tallermecanico\clsgestorclientes.cpp
+	<iostream>
+	<cstring>
+	<string>
+	<cstdio>
+	"clsCliente.h"
+	"clsGestorClientes.h"
+
+1759153894 c:\users\seren\onedrive\escritorio\prog2 tobi\tallermecanico\clsgestorclientes.h
+	"clsCliente.h"
+
+1759252164 source:c:\users\seren\onedrive\escritorio\prog2 tobi\tallermecanico\clsvehiculo.cpp
+	<iostream>
+	<string>
+	<cstring>
+	"clsVehiculo.h"
+	"clsFecha.h"
+
+1759252169 c:\users\seren\onedrive\escritorio\prog2 tobi\tallermecanico\clsvehiculo.h
+	"clsFecha.h"
+
+1759252550 source:c:\users\seren\onedrive\escritorio\prog2 tobi\tallermecanico\clsgestorvehiculo.cpp
+	"clsGestorVehiculo.h"
+	<iostream>
+	<cstring>
+	<string>
+	<cstdio>
+
+1759252401 c:\users\seren\onedrive\escritorio\prog2 tobi\tallermecanico\clsgestorvehiculo.h
+	"clsVehiculo.h"
+
+1759252647 source:c:\users\seren\onedrive\escritorio\prog2 tobi\tallermecanico\main.cpp
+	<iostream>
+	"clsVehiculo.h"
+	"clsGestorVehiculo.h"
+
