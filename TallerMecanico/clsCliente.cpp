@@ -1,10 +1,7 @@
-#include <iostream>
-#include <string>
 #include <cstring>
 #include "clsCliente.h"
 
 
-///CONSTRUCTORES
 
 /// CONSTRUCTOR DEFAULT
 clsCliente::clsCliente()
@@ -22,10 +19,10 @@ clsCliente::clsCliente()
 clsCliente::clsCliente(const char* cuit, const char* nombre, const char* apellido, const char* mail, const char* direccion, char tipoCliente)
 {
     strcpy(_cuit, cuit);
-    strcpy(_cuit, cuit);
-    strcpy(_cuit, cuit);
-    strcpy(_cuit, cuit);
-    strcpy(_cuit, cuit);
+    strcpy(_nombre, nombre);
+    strcpy(_apellido, apellido);
+    strcpy(_mail, mail);
+    strcpy(_direccion, direccion);
     _tipoCliente=tipoCliente;
     _estado=true;
 }

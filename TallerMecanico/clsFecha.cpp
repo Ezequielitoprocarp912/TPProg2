@@ -29,6 +29,16 @@ bool clsFecha::esBisiesto(int anio)
 }
 
 
+///SETTERS
+void clsFecha::setDia(int dia)
+{
+    if(dia>0&&dia<32)
+    {
+        _dia=dia;
+    }
+}
+
+
 ///GETTERS
 int clsFecha::getDia()
 {
@@ -43,16 +53,6 @@ int clsFecha::getMes()
 int clsFecha::getAnio()
 {
     return _anio;
-}
-
-
-///SETTERS
-void clsFecha::setDia(int dia)
-{
-    if(dia>0&&dia<32)
-    {
-        _dia=dia;
-    }
 }
 
 void clsFecha::setMes(int mes)
@@ -91,7 +91,7 @@ clsFecha::clsFecha(int dia = 1, int mes = 1, int anio = 2026)
 
 
 ///METODOS PUBLICOS
-std::string clsFecha::toString()
+std::string clsFecha::mostrar()
 {
     return  std::to_string(_dia) + "/" + std::to_string(_mes) + "/" + std::to_string(_anio);
 }

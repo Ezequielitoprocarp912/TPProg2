@@ -5,10 +5,10 @@
 class clsGestorClientes{
 
 public:
-    ///CONSTRUCTORES
+///CONSTRUCTORES
     clsGestorClientes();
 
-    ///METODOS
+///METODOS
     void CargarUnCliente(clsCliente &);
     void MostrarUnCliente(clsCliente); // Visualizar los datos de un cliente específico .
 

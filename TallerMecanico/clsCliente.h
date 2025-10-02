@@ -12,17 +12,14 @@ private:
     char _numTelefono[20];
     char _mail[50];
     char _direccion [50];
-    char _tipoCliente; /// 1 particular - 2 empresa
+    char _tipoCliente; /// 0 default - 1 particular - 2 empresa
     bool _estado;
 
 
 public:
+
 ///CONSTRUCTORES
-
-/// Constructor DEFAULT
     clsCliente();
-
-/// Constructor PARAMETROS
     clsCliente(const char* cuit, const char* nombre, const char* apellido, const char* mail, const char* direccion, char tipoCliente);
 
 
@@ -46,7 +43,6 @@ public:
     const char* getDireccion();
     char getTipoCliente();
     bool getEstado ();
-
 };
 
 

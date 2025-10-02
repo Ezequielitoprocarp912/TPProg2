@@ -4,26 +4,29 @@
 #include "clsVehiculo.h"
 #include "clsFecha.h"
 
+
+
 ///CONSTRUCTOR DEFAULT
 clsVehiculo::clsVehiculo()
 {
     strcpy(_numPatente,"SIN NUMERO PATENTE");
-    strcpy(_descripcionFalla,"SIN FALLA");
     strcpy(_marca,"SIN MARCA");
-    _tipoVehiculo = '0';
+    _tipoVehiculo = '0'; /// auto (a) - camion (b) - camioneta (c) - transporte (t)
     _ingreso=clsFecha();
 
 }
 
 ///CONSTRUCTOR CON PARAMETROS
-clsVehiculo::clsVehiculo(const char* patente , const char* descFalla , const char* marca , clsFecha fecha, char tipoVehiculo)
+
+clsVehiculo::clsVehiculo(const char* patente , const char* descFalla , const char* marca , int dia, int mes, int anio, char tipoVehiculo)
 {
     strcpy(_numPatente,patente);
     strcpy(_descripcionFalla,descFalla);
     strcpy(_marca,marca);
-    _ingreso = fecha;
+    _ingreso = clsFecha(dia,mes,anio);
     _tipoVehiculo = tipoVehiculo;
 }
+
 
 ///SETTERS
 void clsVehiculo::setNumeroPatente(const char* numPatente)
@@ -52,6 +55,7 @@ void clsVehiculo::setFalla(const char* falla)
     }
 }
 
+
 void clsVehiculo::setMarca(const char* marca)
 {
     ///VALIDACION
@@ -65,17 +69,21 @@ void clsVehiculo::setMarca(const char* marca)
     }
 }
 
-void clsVehiculo::setIngreso(clsFecha fecha)
+
+void clsVehiculo::setIngreso(clsFecha ingreso)
 {
-    _ingreso = fecha;
+    _ingreso = ingreso;
 }
+
 
 void clsVehiculo::setTipoVehiculo(char tipoVehiculo)
 {
    _tipoVehiculo = tipoVehiculo;
 }
 
+
 ///GETTERS
+
 const char* clsVehiculo::getNumeroPatente()
 {
     return _numPatente;
@@ -86,15 +94,18 @@ const char* clsVehiculo::getMarca()
     return _marca;
 }
 
+
 const char* clsVehiculo::getDescripcion()
 {
     return _descripcionFalla;
 }
 
+
 std::string clsVehiculo::getIngreso()
 {
-    return _ingreso.toString();
+    return _ingreso.mostrar();
 }
+
 
 char clsVehiculo::getTipoVehiculo()
 {

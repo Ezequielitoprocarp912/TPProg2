@@ -6,21 +6,20 @@ class clsVehiculo {
 
 private:
 
+///ATRIBUTOS
  char _numPatente[8];
- char _descripcionFalla [100];
  char _marca [20];
- clsFecha _ingreso;
  char _tipoVehiculo ;
+ clsFecha _ingreso;
 
 public:
 
-    ///CONSTRUCTORES
+///CONSTRUCTORES
     clsVehiculo();
-    clsVehiculo(const char* patente , const char* descFalla , const char* marca , clsFecha ingreso, char tipoVehiculo);
+    clsVehiculo(const char* patente , const char* descFalla , const char* marca , int dia, int mes, int anio, char tipoVehiculo);
 
 
-
-    ///SETTERS
+///SETTERS
     void setNumeroPatente (const char* numPatente);
     void setFalla (const char* descripcionFalla);
     void setMarca (const char* marca);
@@ -28,7 +27,7 @@ public:
     void setTipoVehiculo (char tipoVehiculo);
 
 
-    ///GETTERS
+///GETTERS
     const char* getNumeroPatente();
     const char* getDescripcion();
     const char* getMarca();

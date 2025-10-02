@@ -19,30 +19,26 @@ private:
 
 
 public:
+///SETTERS
+    void setDia(int);
+    void setMes(int);
+    void setAnio(int);
+
+
 ///GETTERS
     int getDia();
     int getMes();
     int getAnio();
 
 
-///SETTERS
-    void setDia(int);
-    void setMes(int);
-    void setAnio(int);
-
 ///CONSTRUCTORES
-
-
-///CONSTRUCTOR DEFAULT
     clsFecha();
-
-
-///CONSTRUCTOR X PARAMETROS
     clsFecha(int, int, int);
 
 
 ///METODOS PUBLICOS
-std::string toString();
+std::string mostrar();
+
 
 ///SOBRECARGA PARA COMPARAR FECHAS
     bool operator == (clsFecha);

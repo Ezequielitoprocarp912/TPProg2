@@ -1,15 +1,16 @@
-#include <iostream>
-#include "clsVehiculo.h"
-#include "clsGestorVehiculo.h"
+#include "clsMenuPrincipal.h"
 
 using namespace std;
 
 int main()
 {
-    clsVehiculo vehiculo;
-    clsGestorVehiculo gestorVehiculo;
-    gestorVehiculo.cargarUnVehiculo(vehiculo);
-    gestorVehiculo.mostrarUnVehiculo(vehiculo);
+    clsMenuPrincipal menu;
+    menu.mostrar();
+
+
+
+
+
 
     return 0;
 }
