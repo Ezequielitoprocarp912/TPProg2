@@ -54,19 +54,19 @@ void clsGestorVehiculo::mostrarUnVehiculo(clsVehiculo vehiculo)
     //std::cout << "TIPO: " << vehiculo.getTipoVehiculo() << std::endl;
 }
 
-bool clsGestorVehiculo::guardarEnDiscoVehiculo(Vehiculo registro)
+bool clsGestorVehiculo::guardarEnDiscoVehiculo(clsVehiculo registro)
 {
     FILE *file;
     file = fopen(_rutaDireccion.c_str(), "ab+");
     if(file==NULL){
         exit(1);
     }
-    bool grabar = fwrite(&registro, sizeof(Vehiculo), 1, file);
+    bool grabar = fwrite(&registro, sizeof(clsVehiculo), 1, file);
     fclose(file);
     return grabar;
 }
 
-bool clsGestorVehiculo::guardarEnDiscoVehiculo(Vehiculo registro,int posicion)
+bool clsGestorVehiculo::guardarEnDiscoVehiculo(clsVehiculo registro,int posicion)
 {
     bool grabar;
     FILE *file;
@@ -74,21 +74,21 @@ bool clsGestorVehiculo::guardarEnDiscoVehiculo(Vehiculo registro,int posicion)
     if(file==NULL){
         exit(1);
     }
-    fseek(file, sizeof(Vehiculo)*posicion, SEEK_SET);
-    grabar = fwrite(&registro, sizeof(Vehiculo), 1, file);
+    fseek(file, sizeof(clsVehiculo)*posicion, SEEK_SET);
+    grabar = fwrite(&registro, sizeof(clsVehiculo), 1, file);
     fclose(file);
     return grabar;
 }
 
 void clsGestorVehiculo::listarTodosLosVehiculos()
 {
-    Vehiculo registro;
+    clsVehiculo registro;
     FILE *file;
     file = fopen(_rutaDireccion.c_str(), "rb");
     if(file == NULL){
         exit(1);
     }
-    while(fread(&registro, sizeof(Vehiculo), 1, file))
+    while(fread(&registro, sizeof(clsVehiculo), 1, file))
     mostrarUnVehiculo(registro);
     fclose(file);
 }

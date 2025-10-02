@@ -38,6 +38,8 @@
 		<Unit filename="clsFecha.h" />
 		<Unit filename="clsGestorClientes.cpp" />
 		<Unit filename="clsGestorClientes.h" />
+		<Unit filename="clsGestorVehiculo.cpp" />
+		<Unit filename="clsGestorVehiculo.h" />
 		<Unit filename="clsMenuPrincipal.cpp" />
 		<Unit filename="clsMenuPrincipal.h" />
 		<Unit filename="clsReparacion.cpp" />

@@ -1,16 +1,13 @@
-#include "clsMenuPrincipal.h"
-
-using namespace std;
+#include "clsGestorVehiculo.h"
+#include <iostream>
+#include <cstring>
+#include <string> /// c_srt()
+#include <cstdio>
 
 int main()
 {
-    clsMenuPrincipal menu;
-    menu.ejecutarMenuPrincipal();
-
-
-
-
-
-
+    clsVehiculo vehiculo;
+    clsGestorVehiculo gestorVehiculo;
+    gestorVehiculo.listarTodosLosVehiculos();
     return 0;
 }

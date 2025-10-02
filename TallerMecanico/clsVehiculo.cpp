@@ -18,7 +18,7 @@ clsVehiculo::clsVehiculo()
 
 ///CONSTRUCTOR CON PARAMETROS
 
-clsVehiculo::clsVehiculo(const char* patente , const char* descFalla , const char* marca , int dia, int mes, int anio, char tipoVehiculo)
+clsVehiculo::clsVehiculo(const char* patente, const char* marca , int dia, int mes, int anio, char tipoVehiculo)
 {
     strcpy(_numPatente,patente);
     strcpy(_marca,marca);
