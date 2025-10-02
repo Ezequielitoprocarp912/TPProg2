@@ -17,24 +17,28 @@ void clsMenuPrincipal::mostrar()
     std::cout << "9 === SALIR DEL MANU ===" << std::endl;
 }
 
-void clsMenuPrincipal::obtenerOpcion()
+int clsMenuPrincipal::obtenerOpcion()
 {
     std::cout << "INGRESE OPCION: ";
     std::cin >> _opcion;
+    return _opcion;
 }
 
-void clsMenuPrincipal::opcionesMenu()
+void clsMenuPrincipal::opcionesMenu(int op)
 {
-    switch(_opcion)
+    switch(op)
     {
     case 1:
+        mostrarMenuClientes();
 
         break;
 
-    case 2: ///MENU VEHICULOS
+    case 2:
+        mostrarMenuVehiculos();
         break;
 
-    case 3: ///MENU REPARACIONES
+    case 3:
+        mostrarMenuReparaciones();
         break;
 
     case 9:
@@ -77,5 +81,15 @@ void clsMenuPrincipal::mostrarMenuReparaciones()
     std::cout << "0 === VOLVER ===" << std::endl;
 }
 
+void clsMenuPrincipal::ejecutarMenuPrincipal()
+{
+    while(_salir!=true)
+    {
+        mostrar();
+        opcionesMenu(obtenerOpcion());
+        system("pause");
+    }
+
+}
 
 

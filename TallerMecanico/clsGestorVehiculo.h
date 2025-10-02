@@ -10,10 +10,10 @@ public:
     void mostrarUnVehiculo(clsVehiculo); // Visualizar los datos de un Vehiculo específico por su id.
 
     /// MANIPULACION DE ARCHIVOS
-    /**bool guardarEnDiscoVehiculo(Vehiculo);
+    bool guardarEnDiscoVehiculo(Vehiculo);
     bool guardarEnDiscoVehiculo(Vehiculo,int);
     void listarTodosLosVehiculos();
-    int buscarVehiculoPorId(int); /// El entero representa el id del Vehiculo
+    /**int buscarVehiculoPorId(int); /// El entero representa el id del Vehiculo
     void leerUnRegistro(int);
     Vehiculo leerVehiculo(int); /// El entero representa la posicion del registro en el archivo*/
 

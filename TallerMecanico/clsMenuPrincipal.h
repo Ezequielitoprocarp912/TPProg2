@@ -12,11 +12,12 @@ private:
 public:
 ///METODOS
     void mostrar();
-    void obtenerOpcion();
-    void opcionesMenu();
+    int obtenerOpcion();
+    void opcionesMenu(int op);
     void mostrarMenuClientes();
     void mostrarMenuVehiculos();
     void mostrarMenuReparaciones();
+    void ejecutarMenuPrincipal();
 
 
 ///CONSTRUCTORES

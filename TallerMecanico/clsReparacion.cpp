@@ -23,7 +23,7 @@ void clsReparacion::setCliente(clsCliente cliente)
     _cliente=cliente;
 }
 
-void clsVehiculo::setCliente(clsVehiculo vehiculo)
+void clsReparacion::setVehiculo(clsVehiculo vehiculo)
 {
     _vehiculo=vehiculo;
 }
@@ -36,7 +36,7 @@ int clsReparacion::getCodReparacion()
 
 const char* clsReparacion::getDescripcionFalla()
 {
-    return _descripcionFalla
+    return _descripcionFalla;
 }
 
 clsCliente clsReparacion::getCliente()

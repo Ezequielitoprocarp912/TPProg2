@@ -5,7 +5,7 @@ using namespace std;
 int main()
 {
     clsMenuPrincipal menu;
-    menu.mostrar();
+    menu.ejecutarMenuPrincipal();
 
 
 

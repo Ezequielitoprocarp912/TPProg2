@@ -53,3 +53,43 @@ void clsGestorVehiculo::mostrarUnVehiculo(clsVehiculo vehiculo)
     std::cout << "FECHA INGRESO: " << vehiculo.getIngreso() << std::endl;
     //std::cout << "TIPO: " << vehiculo.getTipoVehiculo() << std::endl;
 }
+
+bool clsGestorVehiculo::guardarEnDiscoVehiculo(Vehiculo registro)
+{
+    FILE *file;
+    file = fopen(_rutaDireccion.c_str(), "ab+");
+    if(file==NULL){
+        exit(1);
+    }
+    bool grabar = fwrite(&registro, sizeof(Vehiculo), 1, file);
+    fclose(file);
+    return grabar;
+}
+
+bool clsGestorVehiculo::guardarEnDiscoVehiculo(Vehiculo registro,int posicion)
+{
+    bool grabar;
+    FILE *file;
+    file = fopen(_rutaDireccion.c_str(), "rb+");
+    if(file==NULL){
+        exit(1);
+    }
+    fseek(file, sizeof(Vehiculo)*posicion, SEEK_SET);
+    grabar = fwrite(&registro, sizeof(Vehiculo), 1, file);
+    fclose(file);
+    return grabar;
+}
+
+void clsGestorVehiculo::listarTodosLosVehiculos()
+{
+    Vehiculo registro;
+    FILE *file;
+    file = fopen(_rutaDireccion.c_str(), "rb");
+    if(file == NULL){
+        exit(1);
+    }
+    while(fread(&registro, sizeof(Vehiculo), 1, file))
+    mostrarUnVehiculo(registro);
+    fclose(file);
+}
+

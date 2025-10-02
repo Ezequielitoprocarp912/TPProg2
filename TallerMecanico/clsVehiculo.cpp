@@ -21,7 +21,6 @@ clsVehiculo::clsVehiculo()
 clsVehiculo::clsVehiculo(const char* patente , const char* descFalla , const char* marca , int dia, int mes, int anio, char tipoVehiculo)
 {
     strcpy(_numPatente,patente);
-    strcpy(_descripcionFalla,descFalla);
     strcpy(_marca,marca);
     _ingreso = clsFecha(dia,mes,anio);
     _tipoVehiculo = tipoVehiculo;
@@ -39,19 +38,6 @@ void clsVehiculo::setNumeroPatente(const char* numPatente)
     else
     {
         strcpy(_numPatente, "PATENTE NO CARGADA");
-    }
-}
-
-void clsVehiculo::setFalla(const char* falla)
-{
-    ///VALIDACION
-    if (strlen(falla) >= 1 && strlen(falla) <= 100 )
-    {
-        strcpy(_descripcionFalla, falla);
-    }
-    else
-    {
-        strcpy(_descripcionFalla, "FALLA NO CARGADA");
     }
 }
 
@@ -92,12 +78,6 @@ const char* clsVehiculo::getNumeroPatente()
 const char* clsVehiculo::getMarca()
 {
     return _marca;
-}
-
-
-const char* clsVehiculo::getDescripcion()
-{
-    return _descripcionFalla;
 }
 
 
