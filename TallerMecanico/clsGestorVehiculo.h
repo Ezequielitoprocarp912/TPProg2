@@ -6,17 +6,16 @@ class clsGestorVehiculo
 public:
 
     clsGestorVehiculo();
+
     void cargarUnVehiculo(clsVehiculo &); // Agregar un nuevo Vehiculo al sistema.
-    void mostrarUnVehiculo(clsVehiculo); // Visualizar los datos de un Vehiculo específico por su id.
+    void mostrarUnVehiculo(clsVehiculo &); // Visualizar los datos de un Vehiculo específico por su id.
 
     /// MANIPULACION DE ARCHIVOS
     bool guardarEnDiscoVehiculo(clsVehiculo);
     bool guardarEnDiscoVehiculo(clsVehiculo,int);
     void listarTodosLosVehiculos();
-    /**int buscarVehiculoPorId(int); /// El entero representa el id del Vehiculo
-    void leerUnRegistro(int);
-    Vehiculo leerVehiculo(int); /// El entero representa la posicion del registro en el archivo*/
-
+    int buscarVehiculoPorPatente(const char*);
+    clsVehiculo leerVehiculo(int); /// El entero representa la posicion del registro en el archivo
 
 private:
     std::string _rutaDireccion;

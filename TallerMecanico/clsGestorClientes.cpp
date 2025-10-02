@@ -8,12 +8,7 @@
 using namespace std;
 
 ///CONSTRUCTOR
-clsGestorClientes::clsGestorClientes()
-{
-    _rutaDireccion = "Cliente.dat";
-}
-
-
+clsGestorClientes::clsGestorClientes() {_rutaDireccion = "Cliente.dat";}
 
 ///METODOS
 void clsGestorClientes::CargarUnCliente(clsCliente &cliente)
