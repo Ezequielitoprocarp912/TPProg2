@@ -1,6 +1,7 @@
 #pragma once
 #include "clsVehiculo.h"
 
+
 class clsGestorVehiculo
 {
 public:
