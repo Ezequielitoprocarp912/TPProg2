@@ -1,0 +1,61 @@
+# depslib dependency file v1.0
+1759105417 source:c:\users\seren\onedrive\escritorio\tallermecanico\clscliente.cpp
+	<cstring>
+	"clsCliente.h"
+
+1759105409 c:\users\seren\onedrive\escritorio\tallermecanico\clscliente.h
+
+1759253159 source:c:\users\seren\onedrive\escritorio\tallermecanico\clsfecha.cpp
+	<iostream>
+	"clsFecha.h"
+
+1759106439 c:\users\seren\onedrive\escritorio\tallermecanico\clsfecha.h
+	<iostream>
+
+1758935026 source:c:\users\seren\onedrive\escritorio\tallermecanico\clsgestorclientes.cpp
+	<iostream>
+	<cstring>
+	<string>
+	<cstdio>
+	"clsCliente.h"
+	"clsGestorClientes.h"
+
+1759260767 c:\users\seren\onedrive\escritorio\tallermecanico\clsgestorclientes.h
+	"clsCliente.h"
+
+1759348443 source:c:\users\seren\onedrive\escritorio\tallermecanico\clsmenuprincipal.cpp
+	"clsMenuPrincipal.h"
+	<iostream>
+
+1759348414 c:\users\seren\onedrive\escritorio\tallermecanico\clsmenuprincipal.h
+
+1759347666 source:c:\users\seren\onedrive\escritorio\tallermecanico\clsreparacion.cpp
+	"clsReparacion.h"
+	"clsCliente.h"
+	"clsVehiculo.h"
+	<cstring>
+
+1759262641 c:\users\seren\onedrive\escritorio\tallermecanico\clsreparacion.h
+	"clsCliente.h"
+	"clsVehiculo.h"
+
+1759420097 c:\users\seren\onedrive\escritorio\tallermecanico\clsvehiculo.h
+	"clsFecha.h"
+
+1759420207 source:c:\users\seren\onedrive\escritorio\tallermecanico\clsgestorvehiculo.cpp
+	"clsGestorVehiculo.h"
+	<iostream>
+	<cstring>
+	<string>
+	<cstdio>
+
+1759420124 c:\users\seren\onedrive\escritorio\tallermecanico\clsgestorvehiculo.h
+	"clsVehiculo.h"
+
+1759420238 source:c:\users\seren\onedrive\escritorio\tallermecanico\clsvehiculo.cpp
+	<iostream>
+	<string>
+	<cstring>
+	"clsVehiculo.h"
+	"clsFecha.h"
+
