@@ -42,7 +42,7 @@ void clsGestorVehiculo::cargarUnVehiculo(clsVehiculo &vehiculo)
     vehiculo.setTipoVehiculo(tipoVehiculo);
 }
 
-void clsGestorVehiculo::mostrarUnVehiculo(clsVehiculo &vehiculo)
+void clsGestorVehiculo::mostrarUnVehiculo(clsVehiculo vehiculo)
 {
     std::cout << "PATENTE: " << vehiculo.getNumeroPatente() << std::endl;
     std::cout << "MARCA: " << vehiculo.getMarca() << std::endl;
@@ -80,7 +80,7 @@ bool clsGestorVehiculo::guardarEnDiscoVehiculo(clsVehiculo registro)
     return grabar;
 }
 
-bool clsGestorVehiculo::guardarEnDiscoVehiculo(clsVehiculo registro,int posicion)
+bool clsGestorVehiculo::guardarEnDiscoVehiculo(clsVehiculo registro, int posicion)
 {
     bool grabar;
     FILE *file;
@@ -146,4 +146,29 @@ clsVehiculo clsGestorVehiculo::leerVehiculo(int posicion){
     /// CIERRO ARCHIVO
     fclose(file);
     return registro;
+}
+
+void clsGestorVehiculo::modificarVehiculoPorPatente()
+{
+    char patente[8];
+    std::cout << "PATENTE: ";
+    std::cin >> patente;
+
+    int posicion = buscarVehiculoPorPatente(patente);
+    if (posicion == -1) {
+        std::cout << "ERROR: VEHICULO NO ENCONTRADO" << std::endl;
+        return;
+    }
+
+    clsVehiculo vehiculo = leerVehiculo(posicion);
+
+    std::cout << "DATOS ACTUALES: " << std::endl;
+    mostrarUnVehiculo(vehiculo);
+
+    std::cout << "DATOS NUEVOS: " << std::endl;
+    cargarUnVehiculo(vehiculo);
+
+    // Reemplazar el vehiculo en la posicion
+    if (guardarEnDiscoVehiculo(vehiculo, posicion)) {std::cout << "VEHICULO MODIFICADO CORRECTAMENTE" << std::endl;}
+    else {std::cout << "ERROR: NO SE PUDO MODIFICAR VEHICULO" << std::endl;}
 }
