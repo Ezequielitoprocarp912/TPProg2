@@ -1,5 +1,8 @@
 #include "clsMenuPrincipal.h"
+#include "clsGestorClientes.h"
+#include "clsGestorVehiculo.h"
 #include <iostream>
+
 
 ///CONSTRUCTORES
 clsMenuPrincipal::clsMenuPrincipal()
@@ -7,38 +10,37 @@ clsMenuPrincipal::clsMenuPrincipal()
     _salir=false;
 }
 
-///METODOS
+///METODOS MENU PRINCIPAL
 void clsMenuPrincipal::mostrar()
 {
+    system("cls");
     std::cout << "==== TALLER MECANICO PACHECO ====" << std::endl;
     std::cout << "1-Menu Clientes" << std::endl;
     std::cout << "2-Menu Vehiculos" << std::endl;
     std::cout << "3-Menu Reparaciones" << std::endl;
-    std::cout << "9 === SALIR DEL MANU ===" << std::endl;
+    std::cout << "9 === SALIR DEL MENU ===" << std::endl;
 }
 
-int clsMenuPrincipal::obtenerOpcion()
+void clsMenuPrincipal::elegirOpcion()
 {
     std::cout << "INGRESE OPCION: ";
     std::cin >> _opcion;
-    return _opcion;
 }
 
-void clsMenuPrincipal::opcionesMenu(int op)
+void clsMenuPrincipal::opcionesMenu()
 {
-    switch(op)
+    switch(_opcion)
     {
     case 1:
-        mostrarMenuClientes();
-
+        ejecutarMenuClientes();
         break;
 
     case 2:
-        mostrarMenuVehiculos();
+        ejecutarMenuVehiculos();
         break;
 
     case 3:
-        mostrarMenuReparaciones();
+        ejecutarMenuReparaciones();
         break;
 
     case 9:
@@ -47,11 +49,27 @@ void clsMenuPrincipal::opcionesMenu(int op)
 
     default:
         std::cout << "Error, ingrese una opcion valida" << std::endl;
+        system("pause");
     }
 }
 
+void clsMenuPrincipal::ejecutarMenuPrincipal()
+{
+    while(_salir!=true)
+    {
+        mostrar();
+        elegirOpcion();
+        opcionesMenu();
+    }
+
+
+}
+
+
+///METODOS MENU CLIENTES
 void clsMenuPrincipal::mostrarMenuClientes()
 {
+    system("cls");
     std::cout << "=== MENU CLIENTES ===" << std::endl;
     std::cout << "1-Cargar cliente" << std::endl;
     std::cout << "2-Modificar cliente" << std::endl;
@@ -61,8 +79,51 @@ void clsMenuPrincipal::mostrarMenuClientes()
     std::cout << "0 === VOLVER ===" << std::endl;
 }
 
+void clsMenuPrincipal::opcionesMenuClientes()
+{
+    switch(_opcion)
+    {
+    case 1:
+        ///clsGestorClientes.CargarUnCliente();
+        break;
+
+    case 2:
+        ///MODIFICAR CLIENTE
+        break;
+
+    case 3:
+        ///BAJA CLIENTE
+        break;
+
+    case 4:
+        ///MOSTRAR TODOS LOS CLIENTES
+        break;
+    case 5:
+        ///BUSCAR X CUIT
+        break;
+
+    case 0:
+        return;
+        break;
+
+    default:
+        std::cout << "Error, ingrese una opcion valida" << std::endl;
+        system("pause");
+        break;
+    }
+}
+
+void clsMenuPrincipal::ejecutarMenuClientes()
+{
+    mostrarMenuClientes();
+    elegirOpcion();
+    opcionesMenuClientes();
+}
+
+///METODOS MENU VEHICULOS
 void clsMenuPrincipal::mostrarMenuVehiculos()
 {
+    system("cls");
     std::cout << "=== MENU VEHICULOS ===" << std::endl;
     std::cout << "1-Cargar vehiculo" << std::endl;
     std::cout << "2-Modificar vehiculo" << std::endl;
@@ -72,8 +133,50 @@ void clsMenuPrincipal::mostrarMenuVehiculos()
     std::cout << "0 === VOLVER ===" << std::endl;
 }
 
+void clsMenuPrincipal::opcionesMenuVehiculos()
+{
+    switch(_opcion)
+    {
+    case 1:
+        ///CARGAR VEHICULO
+        break;
+
+    case 2:
+        ///MODIFICAR VEHICULO
+        break;
+
+    case 3:
+        ///BAJA VEHICULO
+        break;
+
+    case 4:
+        ///MOSTRAR TODOS LOS VEHICULOS
+        break;
+    case 5:
+        ///BUSCAR X PATENTE
+        break;
+
+    case 0:
+        return ;
+        break;
+
+    default:
+        std::cout << "Error, ingrese una opcion valida" << std::endl;
+        system("pause");
+    }
+}
+
+void clsMenuPrincipal::ejecutarMenuVehiculos()
+{
+    mostrarMenuVehiculos();
+    elegirOpcion();
+    opcionesMenuVehiculos();
+}
+
+///METODOS MENU REPARACIONES
 void clsMenuPrincipal::mostrarMenuReparaciones()
 {
+    system("cls");
     std::cout << "=== MENU REPARACIONES ===" << std::endl;
     std::cout << "1-Cargar reparacion" << std::endl;
     std::cout << "2-Mostrar reparacion por codigo de reparacion" << std::endl;
@@ -81,15 +184,35 @@ void clsMenuPrincipal::mostrarMenuReparaciones()
     std::cout << "0 === VOLVER ===" << std::endl;
 }
 
-void clsMenuPrincipal::ejecutarMenuPrincipal()
+void clsMenuPrincipal::opcionesMenuReparaciones()
 {
-    while(_salir!=true)
+    switch(_opcion)
     {
-        mostrar();
-        opcionesMenu(obtenerOpcion());
+    case 1:
+        ///CARGAR REPARACION
+        break;
+
+    case 2:
+        ///MOSTRAR REPARACION X COD
+        break;
+
+    case 3:
+        ///MOSTRAR TODAS
+        break;
+
+    case 0:
+        return;
+        break;
+
+    default:
+        std::cout << "Error, ingrese una opcion valida" << std::endl;
         system("pause");
     }
-
 }
 
-
+void clsMenuPrincipal::ejecutarMenuReparaciones()
+{
+    mostrarMenuReparaciones();
+    elegirOpcion();
+    opcionesMenuReparaciones();
+}

@@ -12,12 +12,22 @@ private:
 public:
 ///METODOS
     void mostrar();
-    int obtenerOpcion();
-    void opcionesMenu(int op);
-    void mostrarMenuClientes();
-    void mostrarMenuVehiculos();
-    void mostrarMenuReparaciones();
+    void elegirOpcion();
+    void opcionesMenu();
     void ejecutarMenuPrincipal();
+    //
+    void mostrarMenuClientes();
+    void opcionesMenuClientes();
+    void ejecutarMenuClientes();
+    //
+    void mostrarMenuVehiculos();
+    void opcionesMenuVehiculos();
+    void ejecutarMenuVehiculos();
+    //
+    void mostrarMenuReparaciones();
+    void opcionesMenuReparaciones();
+    void ejecutarMenuReparaciones();
+
 
 
 ///CONSTRUCTORES
@@ -25,7 +35,5 @@ public:
 
 
 };
-
-
 
 #endif // CLSMENUPRINCIPAL_H_INCLUDED
