@@ -25,6 +25,7 @@ void clsMenuPrincipal::elegirOpcion()
 {
     std::cout << "INGRESE OPCION: ";
     std::cin >> _opcion;
+    std::cout<<std::endl;
 }
 
 void clsMenuPrincipal::opcionesMenu()
@@ -135,29 +136,42 @@ void clsMenuPrincipal::mostrarMenuVehiculos()
 
 void clsMenuPrincipal::opcionesMenuVehiculos()
 {
+    clsGestorVehiculo gestorVehiculos;
+
     switch(_opcion)
     {
+
     case 1:
-        ///CARGAR VEHICULO
+        system("cls");
+        gestorVehiculos.cargarVehiculo();
+        system("pause");
         break;
 
-    case 2:
-        ///MODIFICAR VEHICULO
+    case 2://
+        system("cls");
+        gestorVehiculos.modificarVehiculo();
+        system("pause");
         break;
 
     case 3:
         ///BAJA VEHICULO
+        system("cls");
+        gestorVehiculos.bajaVehiculo();        system("pause");
         break;
 
     case 4:
-        ///MOSTRAR TODOS LOS VEHICULOS
+        system("cls");
+        gestorVehiculos.mostrarTodos();
+        system("pause");
         break;
     case 5:
-        ///BUSCAR X PATENTE
+        system("cls");
+        gestorVehiculos.buscarVehiculo();
+        system("pause");
         break;
 
     case 0:
-        return ;
+        return;
         break;
 
     default:

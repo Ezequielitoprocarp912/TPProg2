@@ -1,5 +1,7 @@
 #ifndef CLSMENUPRINCIPAL_H_INCLUDED
-#define CLSMENUPRINCIPAL_H_INCLUDED
+#define CLSMENUPRINCIPAL_H_INCLUDE
+#include "clsGestorClientes.h"
+#include "clsGestorVehiculo.h"
 
 class clsMenuPrincipal
 {

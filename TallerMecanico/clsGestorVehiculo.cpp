@@ -1,52 +1,79 @@
 #include "clsGestorVehiculo.h"
 #include <iostream>
 #include <cstring>
-#include <string> /// c_srt()
+#include <string>
 #include <cstdio>
 
-clsGestorVehiculo::clsGestorVehiculo() {_rutaDireccion = "Vehiculo.dat";}
+/// CONSTRUCTOR
+clsGestorVehiculo::clsGestorVehiculo()
+{
+    _rutaDireccion = "Vehiculo.dat";
 
+    FILE* file = fopen(_rutaDireccion.c_str(), "ab+");
+
+    if(file!=nullptr)
+    {
+        fclose(file);
+    }
+}
+
+
+///METODOS DE MANIPULACION
 void clsGestorVehiculo::cargarUnVehiculo(clsVehiculo &vehiculo)
 {
     char numPatente[8];
     char marca[20];
+    char modelo[20];
     char tipoVehiculo;
-    clsFecha ingreso;
-    int dia, mes, anio;
+    bool entradaValida;
 
-    std::cout << "PATENTE: ";
-    std::cin >> numPatente;
 
-    std::cout << "MARCA: ";
-    std::cin >> marca;
+    std::cin.ignore();
+    entradaValida=false;
+    while(entradaValida!=true)
+    {
+        system("cls");
+        std::cout << "PATENTE: ";
+        std::cin.getline(numPatente, 8);
+        entradaValida=vehiculo.setNumeroPatente(numPatente);
+    }
 
-    std::cout << "DIA: ";
-    std::cin >> dia;
+    entradaValida=false;
+    while(entradaValida!=true)
+    {
+        std::cout << "MARCA: ";
+        std::cin.getline(marca, 20);
+        entradaValida=vehiculo.setMarca(marca);
+    }
 
-    ingreso.setDia(dia);
+    entradaValida=false;
+    while(entradaValida!=true)
+    {
+        std::cout << "MODELO: ";
+        std::cin.getline(modelo, 20);
+        entradaValida=vehiculo.setModelo(modelo);
+    }
 
-    std::cout << "MES: ";
-    std::cin >> mes;
-    ingreso.setMes(mes);
+    entradaValida=false;
+    while(entradaValida!=true)
+    {
+        std::cout << "\n 1) Auto\n 2) Camioneta\n 3) Camion\n 4) Transporte\n" << std::endl;
+        std::cout << "INGRESE UN NUMERO DE TIPO: ";
+        std::cin >> tipoVehiculo;
+        entradaValida=vehiculo.setTipoVehiculo(tipoVehiculo);
+    }
 
-    std::cout << "ANIO: ";
-    std::cin >> anio;
-    ingreso.setAnio(anio);
+    vehiculo.setEstado(true);
 
-    std::cout << "TIPO(1 - auto, 2 - camioneta, 3 - camion, 4 - transporte): ";
-    std::cin >> tipoVehiculo;
-
-    vehiculo.setNumeroPatente(numPatente);
-    vehiculo.setMarca(marca);
-    vehiculo.setIngreso(ingreso);
-    vehiculo.setTipoVehiculo(tipoVehiculo);
 }
+
 
 void clsGestorVehiculo::mostrarUnVehiculo(clsVehiculo vehiculo)
 {
     std::cout << "PATENTE: " << vehiculo.getNumeroPatente() << std::endl;
     std::cout << "MARCA: " << vehiculo.getMarca() << std::endl;
-    std::cout << "FECHA INGRESO: " << vehiculo.getIngreso() << std::endl;
+    std::cout << "MODELO: " << vehiculo.getModelo() << std::endl;
+
     std::cout << "TIPO: ";
     switch(vehiculo.getTipoVehiculo())
     {
@@ -68,58 +95,59 @@ void clsGestorVehiculo::mostrarUnVehiculo(clsVehiculo vehiculo)
     std::cout << std::endl << std::endl;
 }
 
-bool clsGestorVehiculo::guardarEnDiscoVehiculo(clsVehiculo registro)
+
+bool clsGestorVehiculo::guardarEnDiscoVehiculo(clsVehiculo vehiculo)
 {
     FILE *file;
     file = fopen(_rutaDireccion.c_str(), "ab+");
 
-    if(file==NULL){exit(1);}
+    if(file==NULL)
+    {
+        std::cout << "Direccion no encontrada";
+        return false;
+    }
 
-    bool grabar = fwrite(&registro, sizeof(clsVehiculo), 1, file);
+    bool grabar = fwrite(&vehiculo, sizeof(clsVehiculo), 1, file);
     fclose(file);
     return grabar;
 }
 
-bool clsGestorVehiculo::guardarEnDiscoVehiculo(clsVehiculo registro, int posicion)
+
+bool clsGestorVehiculo::guardarEnDiscoVehiculo(clsVehiculo vehiculo, int posicion)
 {
     bool grabar;
     FILE *file;
     file = fopen(_rutaDireccion.c_str(), "rb+");
 
-    if(file==NULL){exit(1);}
+    if(file==NULL)
+    {
+        exit(1);
+    }
 
     fseek(file, sizeof(clsVehiculo)*posicion, SEEK_SET);
-    grabar = fwrite(&registro, sizeof(clsVehiculo), 1, file);
+    grabar = fwrite(&vehiculo, sizeof(clsVehiculo), 1, file);
     fclose(file);
     return grabar;
 }
 
-void clsGestorVehiculo::listarTodosLosVehiculos()
+
+int clsGestorVehiculo::buscarVehiculoPorPatente(const char* patente)
 {
-    clsVehiculo registro;
-
-    FILE *file;
-    file = fopen(_rutaDireccion.c_str(), "rb");
-
-    if(file == NULL){exit(1);}
-
-    while(fread(&registro, sizeof(clsVehiculo), 1, file))
-    mostrarUnVehiculo(registro);
-    fclose(file);
-}
-
-int clsGestorVehiculo::buscarVehiculoPorPatente(const char* patente){
     int posicion;
-    clsVehiculo registro;
+    clsVehiculo vehiculo;
     FILE *file;
     file = fopen(_rutaDireccion.c_str(), "rb");
 
-    if(file == NULL){exit(1);}
+    if(file == NULL)
+    {
+        exit(1);
+    }
+
 
     int i=0;
-    while(fread(&registro, sizeof(clsVehiculo), 1, file))
+    while(fread(&vehiculo, sizeof(clsVehiculo), 1, file))
     {
-        if(registro.getNumeroPatente()==patente)
+        if(strcmp(vehiculo.getNumeroPatente(), patente)==0)
         {
             posicion = i;
             fclose(file);
@@ -129,46 +157,154 @@ int clsGestorVehiculo::buscarVehiculoPorPatente(const char* patente){
     }
 
     fclose(file);
-    return -1;
+    return -1; /// RETORNA -1 YA QUE NO ENCONTRO LA PATENTE.
 }
 
-clsVehiculo clsGestorVehiculo::leerVehiculo(int posicion){
-    clsVehiculo registro;
+
+clsVehiculo clsGestorVehiculo::leerVehiculo(int posicion)
+{
+    clsVehiculo vehiculo;
     FILE *file;
     ///
     file = fopen(_rutaDireccion.c_str(),"rb");
 
-    if(file == NULL){exit(1);}
+    if(file == NULL)
+    {
+        exit(1);
+    }
 
     /// ME POSICIONO EL CURSOR EN EL REGISTRO EXACTO
     fseek(file, sizeof(clsVehiculo)*posicion, SEEK_SET);
-    fread(&registro, sizeof(clsVehiculo), 1, file);
+    fread(&vehiculo, sizeof(clsVehiculo), 1, file);
     /// CIERRO ARCHIVO
     fclose(file);
-    return registro;
+    return vehiculo;
 }
 
-void clsGestorVehiculo::modificarVehiculoPorPatente()
-{
-    char patente[8];
-    std::cout << "PATENTE: ";
-    std::cin >> patente;
 
-    int posicion = buscarVehiculoPorPatente(patente);
-    if (posicion == -1) {
-        std::cout << "ERROR: VEHICULO NO ENCONTRADO" << std::endl;
+///EJECUCION DE OPCIONES
+void clsGestorVehiculo::cargarVehiculo()
+{
+    clsVehiculo vehiculoNuevo;
+    bool check;
+
+    cargarUnVehiculo(vehiculoNuevo);
+
+    if((buscarVehiculoPorPatente(vehiculoNuevo.getNumeroPatente()))!=-1)
+    {
+        system("cls");
+        std::cout << "Error. Vehiculo ya existente." << std::endl;
         return;
     }
 
-    clsVehiculo vehiculo = leerVehiculo(posicion);
+    check=guardarEnDiscoVehiculo(vehiculoNuevo);
 
-    std::cout << "DATOS ACTUALES: " << std::endl;
-    mostrarUnVehiculo(vehiculo);
+    if(check==true)
+    {
+        std::cout << "Vehiculo guardado exitosamente" << std::endl;
+    }
+    else
+    {
+        std::cout << "El vehiculo no ha podido ser guardado" << std::endl;
+    }
+}
 
-    std::cout << "DATOS NUEVOS: " << std::endl;
-    cargarUnVehiculo(vehiculo);
 
-    // Reemplazar el vehiculo en la posicion
-    if (guardarEnDiscoVehiculo(vehiculo, posicion)) {std::cout << "VEHICULO MODIFICADO CORRECTAMENTE" << std::endl;}
-    else {std::cout << "ERROR: NO SE PUDO MODIFICAR VEHICULO" << std::endl;}
+void clsGestorVehiculo::modificarVehiculo()
+{
+    char patente[8];
+    std::cout << "Patente de vehiculo a modificar: ";
+    std::cin >> patente;
+
+    int pos;
+    pos=buscarVehiculoPorPatente(patente);
+
+    if (pos!=-1)
+    {
+        clsVehiculo vehiculo = leerVehiculo(pos);
+
+        std::cout << "DATOS ACTUALES: " << std::endl;
+        mostrarUnVehiculo(vehiculo);
+
+        std::cout << "DATOS NUEVOS: " << std::endl;
+        cargarUnVehiculo(vehiculo);
+
+        ///EDITA EL VEHICULO EN SU POSICION CORRESPONDIENTE
+        if (guardarEnDiscoVehiculo(vehiculo, pos))
+        {
+            std::cout << "VEHICULO MODIFICADO CORRECTAMENTE" << std::endl;
+        }
+        else
+        {
+            std::cout << "ERROR: NO SE PUDO MODIFICAR VEHICULO" << std::endl;
+        }
+    }
+    else
+    {
+        std::cout << "ERROR: VEHICULO NO ENCONTRADO" << std::endl;
+        return;
+    }
+}
+
+
+void clsGestorVehiculo::mostrarTodos()
+{
+    clsVehiculo vehiculo;
+
+    FILE *file;
+    file = fopen(_rutaDireccion.c_str(), "rb");
+
+    if(file == NULL)
+    {
+        exit(1);
+    }
+
+    while(fread(&vehiculo, sizeof(clsVehiculo), 1, file))
+    {
+        if(vehiculo.getEstado()==true)
+        {
+            mostrarUnVehiculo(vehiculo);
+        }
+    }
+
+    fclose(file);
+}
+
+
+void clsGestorVehiculo::bajaVehiculo()
+{
+    clsVehiculo vehiculoEliminado;
+    char patente[8];
+
+    std::cin.ignore();
+    std::cout << "Patente de vehiculo a eliminar: ";
+    std::cin.getline(patente, 8);
+
+    int pos;
+
+    pos=buscarVehiculoPorPatente(patente);
+    vehiculoEliminado=leerVehiculo(pos);
+    vehiculoEliminado.setEstado(false);
+
+    guardarEnDiscoVehiculo(vehiculoEliminado, pos);
+}
+
+void clsGestorVehiculo::buscarVehiculo()
+{
+    char patente[8];
+    std::cout << "Patente de vehiculo a buscar: ";
+    std::cin >> patente;
+
+    int pos;
+    pos=buscarVehiculoPorPatente(patente);
+
+    if (pos!=-1)
+    {
+        clsVehiculo vehiculo = leerVehiculo(pos);
+        mostrarUnVehiculo(vehiculo);
+    }
+    else
+    {
+        std::cout << "Error. El vehiculo es inexistente" << std::endl;
+    }
 }

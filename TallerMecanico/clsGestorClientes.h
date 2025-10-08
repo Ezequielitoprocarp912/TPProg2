@@ -1,6 +1,7 @@
 #ifndef CLSGESTORCLIENTES_H_INCLUDED
 #define CLSGESTORCLIENTES_H_INCLUDED
 #include "clsCliente.h"
+#include <iostream>
 
 class clsGestorClientes{
 
@@ -11,7 +12,6 @@ public:
 ///METODOS
     void CargarUnCliente(clsCliente &);
     void MostrarUnCliente(clsCliente); // Visualizar los datos de un cliente específico .
-
 
 
 private:

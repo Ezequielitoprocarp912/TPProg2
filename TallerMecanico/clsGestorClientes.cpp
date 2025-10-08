@@ -1,4 +1,3 @@
-/*gestor.cpp*/
 #include <iostream>
 #include <cstring>
 #include <string> /// c_srt()

@@ -12,6 +12,8 @@ private:
     char _descripcionFalla [200];
     clsCliente _cliente;
     clsVehiculo _vehiculo;
+    ///HACER DESPUES
+    //bool _estado /// 1 en reparacion - 0 reparado
 
 public:
 ///CONSTRUCTORES
