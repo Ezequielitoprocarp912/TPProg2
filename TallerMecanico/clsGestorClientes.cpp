@@ -1,10 +1,4 @@
-#include <iostream>
-#include <cstring>
-#include <string> /// c_srt()
-#include <cstdio>
-#include "clsCliente.h"
 #include "clsGestorClientes.h"
-using namespace std;
 
 ///CONSTRUCTOR
 clsGestorClientes::clsGestorClientes() {_rutaDireccion = "Cliente.dat";}

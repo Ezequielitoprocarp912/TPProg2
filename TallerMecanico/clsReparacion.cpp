@@ -1,7 +1,4 @@
 #include "clsReparacion.h"
-#include "clsCliente.h"
-#include "clsVehiculo.h"
-#include <cstring>
 
 ///CONSTRUCTORES
 clsReparacion::clsReparacion()

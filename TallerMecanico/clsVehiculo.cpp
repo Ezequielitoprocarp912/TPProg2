@@ -1,8 +1,4 @@
-#include <iostream>
-#include <string>
-#include <cstring>
 #include "clsVehiculo.h"
-
 
 ///CONSTRUCTOR DEFAULT
 clsVehiculo::clsVehiculo()

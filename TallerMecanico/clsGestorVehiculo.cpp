@@ -1,8 +1,4 @@
 #include "clsGestorVehiculo.h"
-#include <iostream>
-#include <cstring>
-#include <string>
-#include <cstdio>
 
 /// CONSTRUCTOR
 clsGestorVehiculo::clsGestorVehiculo()

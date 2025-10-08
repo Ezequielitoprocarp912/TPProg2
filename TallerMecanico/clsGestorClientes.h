@@ -1,23 +1,23 @@
-#ifndef CLSGESTORCLIENTES_H_INCLUDED
-#define CLSGESTORCLIENTES_H_INCLUDED
-#include "clsCliente.h"
+#pragma once
+
 #include <iostream>
+#include <cstdio>
+#include <string>
+#include <cstring>
 
-class clsGestorClientes{
+#include "clsCliente.h"
 
-public:
-///CONSTRUCTORES
-    clsGestorClientes();
+class clsGestorClientes
+{
+    private:
+        std::string _rutaDireccion;
 
-///METODOS
-    void CargarUnCliente(clsCliente &);
-    void MostrarUnCliente(clsCliente); // Visualizar los datos de un cliente específico .
+    public:
+    ///CONSTRUCTORES
+        clsGestorClientes();
 
-
-private:
-    std::string _rutaDireccion;
-
+    ///METODOS
+        void CargarUnCliente(clsCliente &);
+        void MostrarUnCliente(clsCliente); // Visualizar los datos de un cliente específico .
 
 };
-
-#endif // CLSGESTORCLIENTES_H_INCLUDED

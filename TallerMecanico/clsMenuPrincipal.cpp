@@ -1,8 +1,4 @@
 #include "clsMenuPrincipal.h"
-#include "clsGestorClientes.h"
-#include "clsGestorVehiculo.h"
-#include <iostream>
-
 
 ///CONSTRUCTORES
 clsMenuPrincipal::clsMenuPrincipal()

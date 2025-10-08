@@ -1,7 +1,4 @@
-#include <cstring>
 #include "clsCliente.h"
-
-
 
 /// CONSTRUCTOR DEFAULT
 clsCliente::clsCliente()
