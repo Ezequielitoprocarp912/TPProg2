@@ -2,6 +2,7 @@
 
 #include "clsCliente.h"
 #include "clsVehiculo.h"
+#include "clsFecha.h"
 
 class clsReparacion
 {
@@ -11,8 +12,10 @@ class clsReparacion
         char _descripcionFalla [200];
         clsCliente _cliente;
         clsVehiculo _vehiculo;
-        ///HACER DESPUES
-        //bool _estado /// 1 en reparacion - 0 reparado
+        clsFecha _ingreso;
+        clsFecha _reparado;
+        clsFecha _egreso;
+        bool _estado;
 
     public:
     ///CONSTRUCTORES
@@ -20,13 +23,22 @@ class clsReparacion
 
     ///SETTERS
         void setCodReparacion (int codReparacion);
-        void setDescripcionFalla (const char* descripcionFalla);
-        void setCliente (clsCliente cliente) ;
-        void setVehiculo (clsVehiculo vehiculo);
+        bool setDescripcionFalla (const char* descripcionFalla);
+        bool setCliente (clsCliente cliente);
+        bool setVehiculo (clsVehiculo vehiculo);
+        bool setFechaIngreso(clsFecha ingreso);
+        bool setFechaReparado(clsFecha reparado);
+        bool setFechaEgreso(clsFecha egreso);
+        void setEstado(bool estado);
+
 
     ///GETTERS
         int getCodReparacion();
         const char* getDescripcionFalla();
         clsCliente getCliente();
         clsVehiculo getVehiculo();
+        clsFecha getFechaIngreso();
+        clsFecha getFechaReparado();
+        clsFecha getFechaEgreso();
+        bool getEstado();
 };

@@ -183,10 +183,11 @@ void clsGestorVehiculo::cargarVehiculo()
     {
         system("cls");
         std::cout << "Error. Vehiculo ya existente." << std::endl;
+        return;
     }
 
-    check=guardarEnDiscoVehiculo(vehiculoNuevo);
 
+    check=guardarEnDiscoVehiculo(vehiculoNuevo);
     if(check==true)
     {
         std::cout << "Vehiculo guardado exitosamente" << std::endl;
@@ -244,7 +245,8 @@ void clsGestorVehiculo::mostrarTodos()
 
     if(file == NULL)
     {
-        exit(1);
+        std::cout << "No hay vehiculos cargados actualmente " << std::endl;
+        return;
     }
 
     while(fread(&vehiculo, sizeof(clsVehiculo), 1, file))
@@ -286,9 +288,11 @@ void clsGestorVehiculo::buscarVehiculo()
     int pos;
     pos=buscarVehiculoPorPatente(patente);
 
-    if (pos!=-1)
+    clsVehiculo vehiculo;
+    vehiculo = leerVehiculo(pos);
+
+    if ((pos!=-1) && (vehiculo.getEstado() == true))
     {
-        clsVehiculo vehiculo = leerVehiculo(pos);
         mostrarUnVehiculo(vehiculo);
     }
     else

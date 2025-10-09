@@ -7,15 +7,28 @@ clsReparacion::clsReparacion()
     strcpy(_descripcionFalla, "");
     _cliente=clsCliente();
     _vehiculo=clsVehiculo();
+    _ingreso=clsFecha();
+    _reparado=clsFecha();
+    _egreso=clsFecha();
+    _estado=false;
+
 }
 
 ///SETTERS
-void clsReparacion::setDescripcionFalla(const char* descripcionFalla)
+bool clsReparacion::setDescripcionFalla(const char* descripcionFalla)
 {
-    strcpy(_descripcionFalla, descripcionFalla);
+    if(strlen(descripcionFalla) >= 1 && strlen(descripcionFalla) <= 200)
+    {
+        strcpy(_descripcionFalla, descripcionFalla);
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
 
-void clsReparacion::setCliente(clsCliente cliente)
+/*void clsReparacion::setCliente(clsCliente cliente)
 {
     _cliente=cliente;
 }
@@ -23,7 +36,7 @@ void clsReparacion::setCliente(clsCliente cliente)
 void clsReparacion::setVehiculo(clsVehiculo vehiculo)
 {
     _vehiculo=vehiculo;
-}
+}*/
 
 ///GETTERS
 int clsReparacion::getCodReparacion()
@@ -44,4 +57,21 @@ clsCliente clsReparacion::getCliente()
 clsVehiculo clsReparacion::getVehiculo()
 {
     return _vehiculo;
+}
+
+clsFecha clsReparacion::getFechaIngreso()
+{
+    return _ingreso;
+}
+
+
+clsFecha clsReparacion::getFechaReparado()
+{
+    return _reparado;
+}
+
+
+clsFecha clsReparacion::getFechaEgreso()
+{
+    return _egreso;
 }
