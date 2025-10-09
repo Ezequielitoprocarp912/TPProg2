@@ -4,13 +4,6 @@
 clsGestorVehiculo::clsGestorVehiculo()
 {
     _rutaDireccion = "Vehiculo.dat";
-
-    FILE* file = fopen(_rutaDireccion.c_str(), "ab+");
-
-    if(file!=nullptr)
-    {
-        fclose(file);
-    }
 }
 
 
@@ -136,7 +129,7 @@ int clsGestorVehiculo::buscarVehiculoPorPatente(const char* patente)
 
     if(file == NULL)
     {
-        exit(1);
+        return -1;
     }
 
 
@@ -190,7 +183,6 @@ void clsGestorVehiculo::cargarVehiculo()
     {
         system("cls");
         std::cout << "Error. Vehiculo ya existente." << std::endl;
-        return;
     }
 
     check=guardarEnDiscoVehiculo(vehiculoNuevo);
