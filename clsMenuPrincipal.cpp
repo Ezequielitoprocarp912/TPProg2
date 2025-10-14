@@ -3,6 +3,7 @@
 
 #include "clsGestorCliente.h"
 #include "clsGestorVehiculo.h"
+#include "clsGestorReparacion.h"
 #include "clsMenuPrincipal.h"
 
 ///CONSTRUCTORES
@@ -214,10 +215,14 @@ void clsMenuPrincipal::mostrarMenuReparaciones()
 
 void clsMenuPrincipal::opcionesMenuReparaciones()
 {
+    clsGestorReparacion gestorReparacion;
+
     switch(_opcion)
     {
     case 1:
-        ///CARGAR REPARACION
+        system("cls");
+        gestorReparacion.cargarReparacion();
+        system("pause");
         break;
 
     case 2:

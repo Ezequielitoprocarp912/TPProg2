@@ -12,6 +12,7 @@ public:
     clsGestorCliente();
 
     /// MÉTODOS DE MANIPULACIÓN
+    bool ev(std::string texto, int minimo, int maximo);
     void cargarUnCliente(clsCliente &);
     void mostrarUnCliente(clsCliente);
 

@@ -12,9 +12,13 @@ clsGestorReparacion::clsGestorReparacion()
     _rutaDireccion = "Reparacion.dat";
 }
 
-int clsGestorReparacion::cantidadDeReparaciones(){
+
+/// METODOS DE MANIPULACION
+int clsGestorReparacion::cantidadDeReparaciones()
+{
     FILE *p = fopen(_rutaDireccion.c_str(),"rb");
-    if(p==NULL){
+    if(p==NULL)
+    {
         return -1;
     }
     fseek(p,0,SEEK_END);
@@ -23,7 +27,8 @@ int clsGestorReparacion::cantidadDeReparaciones(){
 
 }
 
-void clsGestorReparacion::cargarUnaReparacion(clsReparacion &objRep){
+void clsGestorReparacion::cargarUnaReparacion(clsReparacion &objRep)
+{
 
     int codRep = cantidadDeReparaciones()+1;
     char descripcionFalla[200],cuit[12],numPatente[8];
@@ -53,7 +58,8 @@ void clsGestorReparacion::cargarUnaReparacion(clsReparacion &objRep){
             system("pause");
             continue;
         }
-        else{
+        else
+        {
 
             entradaValida = true;
             objRep.setDescripcionFalla(descripcionFalla);
@@ -115,8 +121,16 @@ void clsGestorReparacion::cargarUnaReparacion(clsReparacion &objRep){
     std::cout<<"ANIO : ";
     std::cin>>anio;
 
-    clsFecha F_ingreso;(dia,mes,anio);
+    clsFecha F_ingreso;
+    (dia,mes,anio);
     objRep.setFechaIngreso(F_ingreso);
+}
+
+void clsGestorReparacion::cargarReparacion()
+{
+    clsReparacion reparacionNueva;
+
+    cargarUnaReparacion(reparacionNueva);
 }
 
 

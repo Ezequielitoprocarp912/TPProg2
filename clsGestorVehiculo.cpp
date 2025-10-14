@@ -13,77 +13,66 @@ clsGestorVehiculo::clsGestorVehiculo()
 
 
 ///METODOS DE MANIPULACION
+bool clsGestorVehiculo::ev(std::string texto, int minimo, int maximo)
+{
+    if( (texto.size()>=minimo)&&(texto.size()<=maximo))
+    {
+        return true;
+    }
+    else
+    {
+        system("cls");
+        std::cout << "Entrada invalida. Ingrese nuevamente" << std::endl;
+        return false;
+    }
+}
+
+
 void clsGestorVehiculo::cargarUnVehiculo(clsVehiculo &vehiculo)
 {
-    char numPatente[8];
-    char marca[21];
-    char modelo[21];
+    std::string numPatente;
+    std::string marca;
+    std::string modelo;
     char tipoVehiculo;
-    bool entradaValida;
 
     std::cin.ignore();
 
-    entradaValida=false;
-    while(entradaValida!=true)
+    do
     {
-        system("cls");
         std::cout << "PATENTE: ";
-        std::cin.getline(numPatente, 8);
-
-        if(std::cin.fail()) /// BANDERA DE ERROR SI HAY OVERFLOW
-        {
-            std::cin.clear(); /// LIMPIA LA BANDERA DE ERROR
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); /// LIMPIA TODOS LOS CARACTERES HASTA EL TERMINADOR
-            std::cout << "Demasiados ca racteres, intente nuevamente" << std::endl;
-            system("pause");
-            continue; /// VUELVE AL BUCLE HASTA QUE RECIBA ALGO VALIDO
-        }
-
-        entradaValida = vehiculo.setNumeroPatente(numPatente);
+        std::getline(std::cin, numPatente);
     }
+    while(!(ev(numPatente, 6, 7)));
+
+    vehiculo.setNumeroPatente(numPatente.c_str());
 
 
-    entradaValida=false;
-    while(entradaValida!=true)
+    do
     {
-        system("cls");
         std::cout << "MARCA: ";
-        std::cin.getline(marca, 21);
-
-        if (std::cin.fail())
-        {
-            std::cin.clear();
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-            std::cout << "Demasiados caracteres, intente nuevamente:" << std::endl;
-            system("pause");
-            continue;
-        }
-
-        entradaValida=vehiculo.setMarca(marca);
+        std::getline(std::cin, marca);
     }
+    while(!(ev(marca, 1, 20)));
+
+    vehiculo.setNumeroPatente(marca.c_str());
 
 
-    entradaValida=false;
-    while(entradaValida!=true)
+    do
     {
-        system("cls");
         std::cout << "MODELO: ";
-        std::cin.getline(modelo, 21);
-
-        if (std::cin.fail())
-        {
-            std::cin.clear();
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-            std::cout << "Demasiados caracteres, intente nuevamente:" << std::endl;
-            system("pause");
-            continue;
-        }
-
-        entradaValida=vehiculo.setModelo(modelo);
+        std::getline(std::cin, modelo);
     }
+    while(!(ev(modelo, 1, 20)));
+
+    vehiculo.setNumeroPatente(modelo.c_str());
 
 
-    entradaValida=false;
+
+
+
+
+
+    bool entradaValida=false;
     while(entradaValida!=true)
     {
         std::cout << "\n 1) Auto\n 2) Camioneta\n 3) Camion\n 4) Transporte\n" << std::endl;
@@ -94,6 +83,8 @@ void clsGestorVehiculo::cargarUnVehiculo(clsVehiculo &vehiculo)
 
     vehiculo.setEstado(true);
 }
+
+
 
 
 void clsGestorVehiculo::mostrarUnVehiculo(clsVehiculo vehiculo)
@@ -241,7 +232,9 @@ void clsGestorVehiculo::cargarVehiculo()
 
 void clsGestorVehiculo::modificarVehiculo()
 {
+    char opcion;
     char patente[8];
+
     std::cout << "Patente de vehiculo a modificar: ";
     std::cin >> patente;
 
@@ -255,8 +248,76 @@ void clsGestorVehiculo::modificarVehiculo()
         std::cout << "DATOS ACTUALES: " << std::endl;
         mostrarUnVehiculo(vehiculo);
 
-        std::cout << "DATOS NUEVOS: " << std::endl;
-        cargarUnVehiculo(vehiculo);
+        system("pause");
+
+        std::cout << "Ingrese opcion de dato a cambiar: " << std::endl;
+        std::cout << "\n 1) Marca\n 2) Modelo\n 3) Tipo\n " << std::endl;
+        std::cin >> opcion;
+
+        bool entradaValida;
+
+        switch(opcion)
+        {
+        case '1':
+
+            entradaValida=false;
+            while(entradaValida!=true)
+            {
+                char marca[21];
+                std::cout << "MARCA: ";
+                std::cin.getline(marca, 21);
+
+                if (std::cin.fail())
+                {
+                    std::cin.clear();
+                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                    std::cout << "Demasiados caracteres, intente nuevamente:" << std::endl;
+                    system("pause");
+                    continue;
+                }
+                entradaValida=vehiculo.setMarca(marca);
+            }
+            break;
+
+        case '2':
+
+            entradaValida=false;
+            while(entradaValida!=true)
+            {
+                char modelo[21];
+                std::cout << "MODELO: ";
+                std::cin.getline(modelo, 21);
+
+                if (std::cin.fail())
+                {
+                    std::cin.clear();
+                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                    std::cout << "Demasiados caracteres, intente nuevamente:" << std::endl;
+                    system("pause");
+                    continue;
+                }
+                entradaValida=vehiculo.setModelo(modelo);
+            }
+            break;
+
+        case '3':
+
+            entradaValida=false;
+            while(entradaValida!=true)
+            {
+                char tipoVehiculo;
+                std::cout << "\n 1) Auto\n 2) Camioneta\n 3) Camion\n 4) Transporte\n" << std::endl;
+                std::cout << "INGRESE UN NUMERO DE TIPO: ";
+                std::cin >> tipoVehiculo;
+                entradaValida=vehiculo.setTipoVehiculo(tipoVehiculo);
+            }
+            break;
+        }
+
+
+
+
+
 
         ///EDITA EL VEHICULO EN SU POSICION CORRESPONDIENTE
         if (guardarEnDiscoVehiculo(vehiculo, pos))

@@ -19,7 +19,11 @@ public:
     int cantidadDeReparaciones();
 
     /// MÉTODOS DE MANIPULACIÓN
-    void cargarUnaReparacion(clsReparacion &);
-    void mostrarUnaReparacion(clsReparacion);
+    void cargarUnaReparacion(clsReparacion &reparacion);
+    void mostrarUnaReparacion(clsReparacion reparacion);
+
+    /// METODOS DE EJECUCION
+
+    void cargarReparacion();
 
 };

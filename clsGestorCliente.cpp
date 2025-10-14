@@ -11,140 +11,115 @@ clsGestorCliente::clsGestorCliente()
     _rutaDireccion = "Cliente.dat";
 }
 
-/// MÉTODOS DE MANIPULACIÓN /// este metodo pide al usuario un cliente y utiliza los setters para validar y guardar
+/// MÉTODOS DE MANIPULACIÓN
+bool clsGestorCliente::ev(std::string texto, int minimo, int maximo)
+{
+    if((texto.size()>=minimo)&&(texto.size()<=maximo))
+    {
+        return true;
+    }
+    else
+    {
+        system("cls");
+        std::cout << "Entrada invalida. Ingrese nuevamente" << std::endl;
+        return false;
+    }
+}
+
+
 void clsGestorCliente::cargarUnCliente(clsCliente &cliente)
 {
-    char cuit[21], nombre[21], apellido[21], telefono[21], mail[51], direccion[51];
-    char tipoCliente;
-    bool entradaValida;
+    std::string cuit;
+    std::string nombre;
+    std::string apellido;
+    std::string telefono;
+    std::string mail;
+    std::string direccion;
+    std::string tipoCliente;
+
 
     std::cin.ignore();
 
-    entradaValida=false;
-    while(entradaValida!=true)
+    ///CUIT
+    do
     {
-        system("cls");
         std::cout << "CUIT: ";
-        std::cin.getline(cuit, 21);
-
-        if(std::cin.fail())
-        {
-            std::cin.clear();
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-            std::cout << "Demasiados caracteres, intente nuevamente" << std::endl;
-            system("pause");
-            continue;
-        }
-        entradaValida = cliente.setCuit(cuit);
+        std::getline(std::cin, cuit);
     }
+    while(!(ev(cuit, 11, 11)));
 
+    cliente.setCuit(cuit.c_str());
 
-    entradaValida = false;
-    while(entradaValida!=true)
+    ///NOMBRE
+    do
     {
-        system("cls");
         std::cout << "NOMBRE: ";
-        std::cin.getline(nombre, 21);
-
-        if(std::cin.fail())
-        {
-            std::cin.clear();
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-            std::cout << "Demasiados caracteres, intente nuevamente" << std::endl;
-            system("pause");
-            continue;
-        }
-
-        entradaValida = cliente.setNombre(nombre);
+        std::getline(std::cin, nombre);
     }
+    while(!(ev(nombre, 1, 20)));
 
+    cliente.setNombre(nombre.c_str());
 
-    entradaValida = false;
-    while(entradaValida!=true)
+    ///APELLIDO
+    do
     {
-        system("cls");
         std::cout << "APELLIDO: ";
-        std::cin.getline(apellido, 21);
-
-        if(std::cin.fail())
-        {
-            std::cin.clear();
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-            std::cout << "Demasiados caracteres, intente nuevamente" << std::endl;
-            system("pause");
-            continue;
-        }
-
-        entradaValida = cliente.setApellido(apellido);
+        std::getline(std::cin, apellido);
     }
+    while(!(ev(apellido, 1, 20)));
+
+    cliente.setApellido(apellido.c_str());
 
 
-    entradaValida = false;
-    while(entradaValida!=true)
+    ///TELEFONO
+    do
     {
-        system("cls");
-        std::cout << "TELÉFONO: ";
-        std::cin.getline(telefono, 21);
-
-        if(std::cin.fail())
-        {
-            std::cin.clear();
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-            std::cout << "Demasiados caracteres, intente nuevamente" << std::endl;
-            system("pause");
-            continue;
-        }
-
-        entradaValida = cliente.setNumTelefono(telefono);
+        std::cout << "NUM TELEFONO : ";
+        std::getline(std::cin, telefono);
     }
+    while(!(ev(telefono, 1, 20)));
+
+    cliente.setNumTelefono(telefono.c_str());
 
 
-    entradaValida = false;
-    while(entradaValida!=true)
+    ///MAIL
+    do
     {
-        system("cls");
-        std::cout << "MAIL: ";
-        std::cin.getline(mail, 51);
-
-        if(std::cin.fail())
-        {
-            std::cin.clear();
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-            std::cout << "Demasiados caracteres, intente nuevamente" << std::endl;
-            system("pause");
-            continue;
-        }
-
-        entradaValida = cliente.setMail(mail);
+        std::cout << "MAIL : ";
+        std::getline(std::cin, mail);
     }
+    while(!(ev(mail, 1, 50)));
+
+    cliente.setMail(mail.c_str());
 
 
-    entradaValida = false;
-    while(entradaValida!=true)
+    ///DIRECCION
+    do
     {
-        system("cls");
-        std::cout << "DIRECCIÓN: ";
-        std::cin.getline(direccion, 51);
-
-        if(std::cin.fail())
-        {
-            std::cin.clear();
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-            std::cout << "Demasiados caracteres, intente nuevamente" << std::endl;
-            system("pause");
-            continue;
-        }
-
-        entradaValida = cliente.setDireccion(direccion);
+        std::cout << "DIRECCION : ";
+        std::getline(std::cin, direccion);
     }
+    while(!(ev(direccion, 1, 50)));
 
-    entradaValida = false;
-    while(entradaValida!=true)
+    cliente.setDireccion(mail.c_str());
+
+
+    ///TIPO DE CLIENTE
+    char tipo;
+
+    do
     {
         std::cout << "Seleccione tipo: (1 Particular --- 2 Empresa) ";
-        std::cin >> tipoCliente;
-        entradaValida = cliente.setTipoCliente(tipoCliente);
+        std::getline(std::cin, tipoCliente);
     }
+    while(!(ev(tipoCliente, 1, 1)) || (tipoCliente != "1" && tipoCliente != "2"));
+    //while(!(ev(tipoCliente, 1, 1)) && ((tipoCliente == "1") || (tipoCliente == "2")));
+
+
+    tipo=tipoCliente[0];
+    cliente.setTipoCliente(tipo);
+
+
 
     cliente.setEstado(true);
 }

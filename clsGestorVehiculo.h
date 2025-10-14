@@ -13,6 +13,7 @@ public:
     void mostrarUnVehiculo(clsVehiculo); // Visualizar los datos de un Vehiculo específico por su id.
 
     /// METODOS DE MANIPULACION
+    bool ev(std::string texto, int minimo, int maximo);
     bool guardarEnDiscoVehiculo(clsVehiculo registro);
     bool guardarEnDiscoVehiculo(clsVehiculo registro, int posicion);
     int buscarVehiculoPorPatente(const char*);
