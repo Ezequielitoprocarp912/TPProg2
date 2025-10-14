@@ -24,11 +24,11 @@ class clsReparacion
     ///SETTERS
         void setCodReparacion (int codReparacion);
         bool setDescripcionFalla (const char* descripcionFalla);
-        bool setCliente (clsCliente cliente);
-        bool setVehiculo (clsVehiculo vehiculo);
-        bool setFechaIngreso(clsFecha ingreso);
-        bool setFechaReparado(clsFecha reparado);
-        bool setFechaEgreso(clsFecha egreso);
+        void setCliente (clsCliente cliente);
+        void setVehiculo (clsVehiculo vehiculo);
+        void setFechaIngreso(clsFecha ingreso);
+        void setFechaReparado(clsFecha reparado);
+        void setFechaEgreso(clsFecha egreso);
         void setEstado(bool estado);
 
 

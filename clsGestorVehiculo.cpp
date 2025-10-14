@@ -34,7 +34,7 @@ void clsGestorVehiculo::cargarUnVehiculo(clsVehiculo &vehiculo)
         {
             std::cin.clear(); /// LIMPIA LA BANDERA DE ERROR
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); /// LIMPIA TODOS LOS CARACTERES HASTA EL TERMINADOR
-            std::cout << "Demasiados caracteres, intente nuevamente" << std::endl;
+            std::cout << "Demasiados ca racteres, intente nuevamente" << std::endl;
             system("pause");
             continue; /// VUELVE AL BUCLE HASTA QUE RECIBA ALGO VALIDO
         }
