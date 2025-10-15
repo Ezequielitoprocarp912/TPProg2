@@ -230,6 +230,7 @@ void clsGestorCliente::modificarCliente()
         std::cout << "\n 1) Nombre\n 2) Apellido\n 3) Mail\n 4) Telefono\n 5) Direccion\n 6) Tipo de cliente\n " << std::endl;
         std::cout << "Ingrese opcion de dato a cambiar: ";
         std::cin >> opcion;
+        std::cin.ignore();
 
         switch(opcion)
         {
@@ -263,6 +264,20 @@ void clsGestorCliente::modificarCliente()
 
         case '3':
         {
+            std::string mail;
+            do
+            {
+                std::cout << "MAIL : ";
+                std::getline(std::cin, mail);
+            }
+            while(!(ev(mail, 1, 50)));
+
+            cliente.setMail(mail.c_str());
+        }
+        break;
+
+        case '4':
+        {
             std::string telefono;
             do
             {
@@ -275,19 +290,6 @@ void clsGestorCliente::modificarCliente()
         }
         break;
 
-        case '4':
-        {
-            std::string mail;
-            do
-            {
-                std::cout << "MAIL : ";
-                std::getline(std::cin, mail);
-            }
-            while(!(ev(mail, 1, 50)));
-
-            cliente.setMail(mail.c_str());
-        }
-        break;
 
         case '5':
         {
@@ -319,22 +321,26 @@ void clsGestorCliente::modificarCliente()
         }
         break;
         }
+
+
+        ///EDITA EL VEHICULO EN SU POSICION CORRESPONDIENTE
+        if (guardarEnDiscoCliente(cliente, pos))
+        {
+            std::cout << "CLIENTE MODIFICADO CORRECTAMENTE" << std::endl;
+        }
+        else
+        {
+            std::cout << "ERROR: NO SE PUDO MODIFICAR EL CLIENTE" << std::endl;
+        }
     }
 
-    clsCliente cliente = leerCliente(pos);
-    std::cout << "DATOS ACTUALES:\n";
-    mostrarUnCliente(cliente);
-
-    system("pause");
-
-    std::cout << "INGRESE NUEVOS DATOS:\n";
-    cargarUnCliente(cliente);
-
-    if (guardarEnDiscoCliente(cliente, pos))
-        std::cout << "Cliente modificado correctamente.";
     else
-        std::cout << "ERROR al modificar cliente.";
+    {
+        std::cout << "ERROR: CLIENTE NO ENCONTRADO" << std::endl;
+        return;
+    }
 }
+
 
 void clsGestorCliente::mostrarTodos()
 {

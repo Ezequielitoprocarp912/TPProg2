@@ -81,11 +81,11 @@ clsFecha::clsFecha()
 
 
 ///CONSTRUCTOR CON PARAMETROS
-clsFecha::clsFecha(int dia = 1, int mes = 1, int anio = 2026)
+clsFecha::clsFecha(int dia, int mes, int anio)
 {
-    _dia=dia;
-    _mes=mes;
-    _anio=anio;
+    setDia(dia);
+    setMes(mes);
+    setAnio(anio);
 }
 
 

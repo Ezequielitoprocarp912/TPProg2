@@ -37,8 +37,8 @@ class clsReparacion
         const char* getDescripcionFalla();
         clsCliente getCliente();
         clsVehiculo getVehiculo();
-        clsFecha getFechaIngreso();
-        clsFecha getFechaReparado();
-        clsFecha getFechaEgreso();
+        std::string getFechaIngreso();
+        std::string getFechaReparado();
+        std::string getFechaEgreso();
         bool getEstado();
 };

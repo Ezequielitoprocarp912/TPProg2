@@ -226,11 +226,15 @@ void clsMenuPrincipal::opcionesMenuReparaciones()
         break;
 
     case 2:
-        ///MOSTRAR REPARACION X COD
+        system("cls");
+        gestorReparacion.buscarReparacion();
+        system("pause");
         break;
 
     case 3:
-        ///MOSTRAR TODAS
+        system("cls");
+        gestorReparacion.mostrarTodas();
+        system("pause");
         break;
 
     case 0:

@@ -78,19 +78,24 @@ clsVehiculo clsReparacion::getVehiculo()
     return _vehiculo;
 }
 
-clsFecha clsReparacion::getFechaIngreso()
+std::string clsReparacion::getFechaIngreso()
 {
-    return _ingreso;
+    return _ingreso.mostrar();
 }
 
 
-clsFecha clsReparacion::getFechaReparado()
+std::string clsReparacion::getFechaReparado()
 {
-    return _reparado;
+    return _reparado.mostrar();
 }
 
 
-clsFecha clsReparacion::getFechaEgreso()
+std::string clsReparacion::getFechaEgreso()
 {
-    return _egreso;
+    return _egreso.mostrar();
+}
+
+bool clsReparacion::getEstado()
+{
+    return _estado;
 }

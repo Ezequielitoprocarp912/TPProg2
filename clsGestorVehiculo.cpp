@@ -83,7 +83,6 @@ void clsGestorVehiculo::cargarUnVehiculo(clsVehiculo &vehiculo)
     tipo=tipoVehiculo[0];
 
     vehiculo.setTipoVehiculo(tipo);
-
 }
 
 

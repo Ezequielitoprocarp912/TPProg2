@@ -13,7 +13,7 @@ public:
 
     /// MÉTODOS DE ARCHIVO
     bool guardarEnDiscoReparacion(clsReparacion);
-    bool SobreEscribirEnDiscoReparacion(clsReparacion, int);
+    bool sobreEscribirEnDiscoReparacion(clsReparacion, int);
     int buscarReparacionPorCod(int);
     clsReparacion leerReparacion(int);
     int cantidadDeReparaciones();
@@ -26,5 +26,7 @@ public:
     /// METODOS DE EJECUCION
 
     void cargarReparacion();
+    void mostrarTodas();
+    void buscarReparacion();
 
 };
