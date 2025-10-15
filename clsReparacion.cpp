@@ -26,9 +26,11 @@ bool clsReparacion::setDescripcionFalla(const char* descripcionFalla)
         return false;
     }
 }
+
 void clsReparacion::setCodReparacion (int codReparacion){
     _codReparacion=codReparacion;
 }
+
 void clsReparacion::setEstado(bool estado){
     _estado=estado;
 }
@@ -41,9 +43,11 @@ void clsReparacion::setCliente(clsCliente cliente)
 void clsReparacion::setFechaIngreso(clsFecha ingreso){
     _ingreso = ingreso;
 }
+
 void clsReparacion::setFechaReparado(clsFecha reparado){
     _reparado = reparado;
 }
+
 void clsReparacion::setFechaEgreso(clsFecha egreso){
     _egreso = egreso;
 }

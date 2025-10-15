@@ -33,10 +33,11 @@ void clsGestorVehiculo::cargarUnVehiculo(clsVehiculo &vehiculo)
     std::string numPatente;
     std::string marca;
     std::string modelo;
-    char tipoVehiculo;
+    std::string tipoVehiculo;
 
     std::cin.ignore();
 
+    ///PATENTE
     do
     {
         std::cout << "PATENTE: ";
@@ -47,6 +48,7 @@ void clsGestorVehiculo::cargarUnVehiculo(clsVehiculo &vehiculo)
     vehiculo.setNumeroPatente(numPatente.c_str());
 
 
+    ///MARCA
     do
     {
         std::cout << "MARCA: ";
@@ -54,9 +56,10 @@ void clsGestorVehiculo::cargarUnVehiculo(clsVehiculo &vehiculo)
     }
     while(!(ev(marca, 1, 20)));
 
-    vehiculo.setNumeroPatente(marca.c_str());
+    vehiculo.setMarca(marca.c_str());
 
 
+    ///MODELO
     do
     {
         std::cout << "MODELO: ";
@@ -64,27 +67,24 @@ void clsGestorVehiculo::cargarUnVehiculo(clsVehiculo &vehiculo)
     }
     while(!(ev(modelo, 1, 20)));
 
-    vehiculo.setNumeroPatente(modelo.c_str());
+    vehiculo.setModelo(modelo.c_str());
 
 
-
-
-
-
-
-    bool entradaValida=false;
-    while(entradaValida!=true)
+    ///TIPO DE VEHICULO
+    char tipo;
+    do
     {
         std::cout << "\n 1) Auto\n 2) Camioneta\n 3) Camion\n 4) Transporte\n" << std::endl;
         std::cout << "INGRESE UN NUMERO DE TIPO: ";
-        std::cin >> tipoVehiculo;
-        entradaValida=vehiculo.setTipoVehiculo(tipoVehiculo);
+        std::getline(std::cin, tipoVehiculo);
     }
+    while(!(ev(tipoVehiculo, 1, 1)) || (tipoVehiculo != "1" && tipoVehiculo != "2" && tipoVehiculo != "3" && tipoVehiculo != "4"));
 
-    vehiculo.setEstado(true);
+    tipo=tipoVehiculo[0];
+
+    vehiculo.setTipoVehiculo(tipo);
+
 }
-
-
 
 
 void clsGestorVehiculo::mostrarUnVehiculo(clsVehiculo vehiculo)
@@ -246,6 +246,8 @@ void clsGestorVehiculo::modificarVehiculo()
         clsVehiculo vehiculo = leerVehiculo(pos);
 
         std::cout << "DATOS ACTUALES: " << std::endl;
+        std::cout << std::endl;
+
         mostrarUnVehiculo(vehiculo);
 
         system("pause");
@@ -253,70 +255,56 @@ void clsGestorVehiculo::modificarVehiculo()
         std::cout << "Ingrese opcion de dato a cambiar: " << std::endl;
         std::cout << "\n 1) Marca\n 2) Modelo\n 3) Tipo\n " << std::endl;
         std::cin >> opcion;
-
-        bool entradaValida;
+        std::cin.ignore();
 
         switch(opcion)
         {
         case '1':
-
-            entradaValida=false;
-            while(entradaValida!=true)
+        {
+            std::string marca;
+            do
             {
-                char marca[21];
                 std::cout << "MARCA: ";
-                std::cin.getline(marca, 21);
-
-                if (std::cin.fail())
-                {
-                    std::cin.clear();
-                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                    std::cout << "Demasiados caracteres, intente nuevamente:" << std::endl;
-                    system("pause");
-                    continue;
-                }
-                entradaValida=vehiculo.setMarca(marca);
+                std::getline(std::cin, marca);
             }
-            break;
+            while(!(ev(marca, 1, 20)));
+
+            vehiculo.setMarca(marca.c_str());
+        }
+        break;
 
         case '2':
-
-            entradaValida=false;
-            while(entradaValida!=true)
+        {
+            std::string modelo;
+            do
             {
-                char modelo[21];
                 std::cout << "MODELO: ";
-                std::cin.getline(modelo, 21);
-
-                if (std::cin.fail())
-                {
-                    std::cin.clear();
-                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                    std::cout << "Demasiados caracteres, intente nuevamente:" << std::endl;
-                    system("pause");
-                    continue;
-                }
-                entradaValida=vehiculo.setModelo(modelo);
+                std::getline(std::cin, modelo);
             }
-            break;
+            while(!(ev(modelo, 1, 20)));
+
+            vehiculo.setModelo(modelo.c_str());
+        }
+        break;
 
         case '3':
-
-            entradaValida=false;
-            while(entradaValida!=true)
+        {
+            char tipo;
+            std::string tipoVehiculo;
+            do
             {
-                char tipoVehiculo;
                 std::cout << "\n 1) Auto\n 2) Camioneta\n 3) Camion\n 4) Transporte\n" << std::endl;
                 std::cout << "INGRESE UN NUMERO DE TIPO: ";
-                std::cin >> tipoVehiculo;
-                entradaValida=vehiculo.setTipoVehiculo(tipoVehiculo);
+                std::getline(std::cin, tipoVehiculo);
             }
-            break;
+            while(!(ev(tipoVehiculo, 1, 1)) || (tipoVehiculo != "1" && tipoVehiculo != "2" && tipoVehiculo != "3" && tipoVehiculo != "4"));
+
+            tipo=tipoVehiculo[0];
+
+            vehiculo.setTipoVehiculo(tipo);
         }
-
-
-
-
+        break;
+        }
 
 
         ///EDITA EL VEHICULO EN SU POSICION CORRESPONDIENTE

@@ -19,6 +19,7 @@ public:
     int cantidadDeReparaciones();
 
     /// MÉTODOS DE MANIPULACIÓN
+    bool ev(std::string texto, int minimo, int maximo);
     void cargarUnaReparacion(clsReparacion &reparacion);
     void mostrarUnaReparacion(clsReparacion reparacion);
 

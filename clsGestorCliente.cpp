@@ -5,7 +5,8 @@
 #include "clsGestorCliente.h"
 #include "clsCliente.h"
 
-/// CONSTRUCTOR           /// /// Guarda la ruta del archivo donde se guardan los registros
+/// CONSTRUCTOR
+/// Guarda la ruta del archivo donde se guardan los registros
 clsGestorCliente::clsGestorCliente()
 {
     _rutaDireccion = "Cliente.dat";
@@ -109,17 +110,13 @@ void clsGestorCliente::cargarUnCliente(clsCliente &cliente)
 
     do
     {
-        std::cout << "Seleccione tipo: (1 Particular --- 2 Empresa) ";
+        std::cout << "Seleccione tipo (1 Particular --- 2 Empresa): ";
         std::getline(std::cin, tipoCliente);
     }
     while(!(ev(tipoCliente, 1, 1)) || (tipoCliente != "1" && tipoCliente != "2"));
-    //while(!(ev(tipoCliente, 1, 1)) && ((tipoCliente == "1") || (tipoCliente == "2")));
-
 
     tipo=tipoCliente[0];
     cliente.setTipoCliente(tipo);
-
-
 
     cliente.setEstado(true);
 }
@@ -131,9 +128,9 @@ void clsGestorCliente::mostrarUnCliente(clsCliente cliente)
     std::cout << "CUIT: " << cliente.getCuit() << std::endl;
     std::cout << "NOMBRE: " << cliente.getNombre() << std::endl;
     std::cout << "APELLIDO: " << cliente.getApellido() << std::endl;
-    std::cout << "TELÉFONO: " << cliente.getNumTelefono() << std::endl;
+    std::cout << "TELEFONO: " << cliente.getNumTelefono() << std::endl;
     std::cout << "MAIL: " << cliente.getMail() << std::endl;
-    std::cout << "DIRECCIÓN: " << cliente.getDireccion() << std::endl;
+    std::cout << "DIRECCION: " << cliente.getDireccion() << std::endl;
     std::cout << "TIPO DE CLIENTE: " << (cliente.getTipoCliente() == '1' ? "Particular" : "Empresa") << std::endl; /// operador ternario
     std::cout << "-----------------------------------";
     std::cout << std::endl;
@@ -210,15 +207,118 @@ void clsGestorCliente::cargarCliente()
 
 void clsGestorCliente::modificarCliente()
 {
+    char opcion;
     char cuit[20];
+
     std::cout << "CUIT del cliente a modificar: ";
     std::cin >> cuit;
 
-    int pos = buscarClientePorCuit(cuit);
-    if (pos == -1)
+    int pos;
+    pos=buscarClientePorCuit(cuit);
+
+    if (pos !=-1)
     {
-        std::cout << "ERROR: Cliente no encontrado";
-        return;
+        clsCliente cliente = leerCliente(pos);
+
+        std::cout << "DATOS ACTUALES: " << std::endl;
+        std::cout << std::endl;
+
+        mostrarUnCliente(cliente);
+
+        system("pause");
+
+        std::cout << "\n 1) Nombre\n 2) Apellido\n 3) Mail\n 4) Telefono\n 5) Direccion\n 6) Tipo de cliente\n " << std::endl;
+        std::cout << "Ingrese opcion de dato a cambiar: ";
+        std::cin >> opcion;
+
+        switch(opcion)
+        {
+        case '1':
+        {
+            std::string nombre;
+            do
+            {
+                std::cout << "NOMBRE: ";
+                std::getline(std::cin, nombre);
+            }
+            while(!(ev(nombre, 1, 20)));
+
+            cliente.setNombre(nombre.c_str());
+        }
+        break;
+
+        case '2':
+        {
+            std::string apellido;
+            do
+            {
+                std::cout << "APELLIDO: ";
+                std::getline(std::cin, apellido);
+            }
+            while(!(ev(apellido, 1, 20)));
+
+            cliente.setApellido(apellido.c_str());
+        }
+        break;
+
+        case '3':
+        {
+            std::string telefono;
+            do
+            {
+                std::cout << "NUM TELEFONO : ";
+                std::getline(std::cin, telefono);
+            }
+            while(!(ev(telefono, 1, 20)));
+
+            cliente.setNumTelefono(telefono.c_str());
+        }
+        break;
+
+        case '4':
+        {
+            std::string mail;
+            do
+            {
+                std::cout << "MAIL : ";
+                std::getline(std::cin, mail);
+            }
+            while(!(ev(mail, 1, 50)));
+
+            cliente.setMail(mail.c_str());
+        }
+        break;
+
+        case '5':
+        {
+            std::string direccion;
+            do
+            {
+                std::cout << "DIRECCION : ";
+                std::getline(std::cin, direccion);
+            }
+            while(!(ev(direccion, 1, 50)));
+
+            cliente.setDireccion(direccion.c_str());
+        }
+        break;
+
+        case '6':
+        {
+            char tipo;
+            std::string tipoCliente;
+            do
+            {
+                std::cout << "Seleccione tipo (1 Particular --- 2 Empresa): ";
+                std::getline(std::cin, tipoCliente);
+            }
+            while(!(ev(tipoCliente, 1, 1)) || (tipoCliente != "1" && tipoCliente != "2"));
+
+            tipo=tipoCliente[0];
+            cliente.setTipoCliente(tipo);
+        }
+        break;
+        }
     }
 
     clsCliente cliente = leerCliente(pos);
