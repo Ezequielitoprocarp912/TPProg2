@@ -1,3 +1,4 @@
+///GESTOR VEHICULO CPP
 #include <iostream>
 #include <cstdio>
 #include <limits>
@@ -83,6 +84,7 @@ void clsGestorVehiculo::cargarUnVehiculo(clsVehiculo &vehiculo)
     tipo=tipoVehiculo[0];
 
     vehiculo.setTipoVehiculo(tipo);
+    vehiculo.setEstado(true);
 }
 
 

@@ -17,11 +17,13 @@ class clsFecha
         bool validarFecha();
         bool esBisiesto(int);
 
+
     public:
     ///SETTERS
         void setDia(int);
         void setMes(int);
         void setAnio(int);
+        bool setFecha(int dia, int mes, int anio);
 
     ///GETTERS
         int getDia();

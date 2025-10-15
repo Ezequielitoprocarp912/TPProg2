@@ -13,7 +13,7 @@ clsGestorReparacion::clsGestorReparacion()
 }
 
 
-/// METODOS DE MANIPULACION
+/// METODOS DE MANIPULACION EV
 bool clsGestorReparacion::ev(std::string texto, int minimo, int maximo)
 {
     if((texto.size()>=minimo)&&(texto.size()<=maximo))
@@ -31,107 +31,182 @@ bool clsGestorReparacion::ev(std::string texto, int minimo, int maximo)
 
 int clsGestorReparacion::cantidadDeReparaciones()
 {
-    FILE *p = fopen(_rutaDireccion.c_str(),"rb");
-    if(p==NULL)
+    FILE *p = fopen(_rutaDireccion.c_str(), "rb");
+    if (p == NULL)
     {
         return -1;
     }
-    fseek(p,0,SEEK_END);
-    int cantReparaciones = ftell(p)/sizeof(clsReparacion);
+
+    fseek(p, 0, SEEK_END);
+    int cantReparaciones = ftell(p) / sizeof(clsReparacion);
+    fclose(p);
+
     return cantReparaciones;
 }
 
 
-void clsGestorReparacion::cargarUnaReparacion(clsReparacion &reparacion)
+
+
+bool clsGestorReparacion::cargarUnaReparacion(clsReparacion &reparacion)
 {
-    int codRep = cantidadDeReparaciones()+1;
-    std::string descripcionFalla;
-    std::string cuit;
-    std::string numPatente;
+    int cant = cantidadDeReparaciones();
+    int codRep;
+
+    if (cant == -1)
+    {
+        codRep = 1;
+    }
+    else
+    {
+        codRep = cant + 1;
+    }
+
+    reparacion.setCodReparacion(codRep);
+    reparacion.setEstado(true);
+
+    std::string cuit, numPatente, descripcionFalla;
     clsCliente cliente;
     clsVehiculo vehiculo;
     clsGestorCliente gestorCliente;
     clsGestorVehiculo gestorVehiculo;
 
-    reparacion.setEstado(true);
-    std::cout<<"CODIGO DE REPARACION: "<<codRep<<std::endl;
-    reparacion.setCodReparacion(codRep);
-
     std::cin.ignore();
 
-
-    ///CUIT
-    do
-    {
+    // CUIT
+    do {
         std::cout << "CUIT: ";
         std::getline(std::cin, cuit);
-    }
-    while(!(ev(cuit, 11, 11)));
+    } while (!ev(cuit, 11, 11));
 
     int posCliente = gestorCliente.buscarClientePorCuit(cuit.c_str());
-
-    if(posCliente!=-1)
-    {
-        cliente = gestorCliente.leerCliente(posCliente);
-        reparacion.setCliente(cliente);
-    }
-    else
-    {
-        std::cout << "Cliente no encontrado." << std::endl;
-        return;
+    if (posCliente == -1) {
+        std::cout << "Cliente no encontrado.\n";
+        return false;
     }
 
+    cliente = gestorCliente.leerCliente(posCliente);
+    reparacion.setCliente(cliente);
 
-    ///PATENTE
-    do
-    {
+    // PATENTE
+    do {
         std::cout << "PATENTE: ";
         std::getline(std::cin, numPatente);
-    }
-    while(!(ev(numPatente, 6, 7)));
+    } while (!ev(numPatente, 6, 7));
 
     int posVehiculo = gestorVehiculo.buscarVehiculoPorPatente(numPatente.c_str());
-
-    if(posVehiculo!=-1)
-    {
-        vehiculo = gestorVehiculo.leerVehiculo(posVehiculo);
-        reparacion.setVehiculo(vehiculo);
-    }
-    else
-    {
-        std::cout << "Vehiculo no encontrado." << std::endl;
-        return;
+    if (posVehiculo == -1) {
+        std::cout << "Vehiculo no encontrado.\n";
+        return false;
     }
 
+    vehiculo = gestorVehiculo.leerVehiculo(posVehiculo);
+    reparacion.setVehiculo(vehiculo);
 
-    ///DESCRIPCION DE LA FALLA
-    do
-    {
+    // DESCRIPCION
+    do {
         std::cout << "DESCRIPCION DE LA FALLA: ";
         std::getline(std::cin, descripcionFalla);
-    }
-    while(!(ev(descripcionFalla, 1, 200)));
-
+    } while (!ev(descripcionFalla, 1, 200));
     reparacion.setDescripcionFalla(descripcionFalla.c_str());
 
-    ///FECHA
-    int dia,mes,anio;
 
-    std::cout<<"INGRESE LA FECHA DE INGRESO : " <<std::endl;
-    std::cout<<"DIA : ";
-    std::cin>>dia;
-    std::cout<<"MES : ";
-    std::cin>>mes;
-    std::cout<<"ANIO : ";
-    std::cin>>anio;
-
+    /// FECHA Y VALIDACIONES
     clsFecha F_ingreso;
-    F_ingreso.setDia(dia);
-    F_ingreso.setMes(mes);
-    F_ingreso.setAnio(anio);
+    bool fechaValida = false;
+    std::string diaStr, mesStr, anioStr;
+    int dia = 0, mes = 0, anio = 0;
+
+    while (!fechaValida)
+    {
+        system("cls");
+        std::cout << "=== INGRESE LA FECHA DE INGRESO ===" << std::endl;
+
+        // DIA
+        bool diaOk = false;
+        do
+        {
+            std::cout << "Dia: ";
+            std::getline(std::cin, diaStr);
+
+            if (!ev(diaStr, 1, 2)) continue;
+
+            dia = atoi(diaStr.c_str());
+            if (dia >= 1 && dia <= 31)
+            {
+                diaOk = true;
+            }
+            else
+            {
+                system("cls");
+                std::cout << "Dia invalido. Ingrese nuevamente." << std::endl;
+            }
+
+        } while (!diaOk);
+
+        // MES
+        bool mesOk = false;
+        do
+        {
+            std::cout << "Mes: ";
+            std::getline(std::cin, mesStr);
+
+            if (!ev(mesStr, 1, 2)) continue;
+
+            mes = atoi(mesStr.c_str());
+            if (mes >= 1 && mes <= 12)
+            {
+                mesOk = true;
+            }
+            else
+            {
+                system("cls");
+                std::cout << "Mes invalido. Ingrese nuevamente." << std::endl;
+            }
+
+        } while (!mesOk);
+
+        // ANIO
+        bool anioOk = false;
+        do
+        {
+            std::cout << "Anio: ";
+            std::getline(std::cin, anioStr);
+
+            if (!ev(anioStr, 4, 4)) continue;
+
+            anio = atoi(anioStr.c_str());
+            if (anio >= 1900 && anio <= 2025)
+            {
+                anioOk = true;
+            }
+            else
+            {
+                system("cls");
+                std::cout << "Anio invalido. Ingrese nuevamente." << std::endl;
+            }
+
+        } while (!anioOk);
+
+        // VALIDACION COMPLETA (31/2, 29/2, etc.)
+        fechaValida = F_ingreso.setFecha(dia, mes, anio);
+
+        if (!fechaValida)
+        {
+            system("cls");
+            std::cout << "La combinacion de fecha es invalida (por ejemplo 31/2 o 29/2 no bisiesto)." << std::endl;
+            system("pause");
+        }
+    }
 
     reparacion.setFechaIngreso(F_ingreso);
+    std::cout << "\nFecha cargada correctamente: " << F_ingreso.mostrar() << std::endl;
+
+    return true;
 }
+
+
+
+
 
 
 void clsGestorReparacion::mostrarUnaReparacion(clsReparacion reparacion)
@@ -215,10 +290,14 @@ void clsGestorReparacion::cargarReparacion()
 {
     clsReparacion reparacionNueva;
 
-    cargarUnaReparacion(reparacionNueva);
-
-    guardarEnDiscoReparacion(reparacionNueva);
+    if (cargarUnaReparacion(reparacionNueva)) {
+        guardarEnDiscoReparacion(reparacionNueva);
+        std::cout << "Reparacion guardada correctamente.\n";
+    } else {
+        std::cout << "No se guardó la reparación (faltan datos válidos).\n";
+    }
 }
+
 
 void clsGestorReparacion::mostrarTodas()
 {
@@ -244,7 +323,7 @@ void clsGestorReparacion::mostrarTodas()
     fclose(file);
 }
 
-
+///BUSCAR REPARACION POR CODIGO DE REP
 void clsGestorReparacion::buscarReparacion()
 {
     clsReparacion reparacionBuscada;

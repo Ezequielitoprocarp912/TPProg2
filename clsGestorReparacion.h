@@ -20,13 +20,13 @@ public:
 
     /// MÉTODOS DE MANIPULACIÓN
     bool ev(std::string texto, int minimo, int maximo);
-    void cargarUnaReparacion(clsReparacion &reparacion);
+    bool cargarUnaReparacion(clsReparacion &reparacion); /// AHORA ES BOOL XQ AUNQUE PONGA UNA PATENTE MAL GUARDABA UNA REPARACION VACIA
     void mostrarUnaReparacion(clsReparacion reparacion);
 
     /// METODOS DE EJECUCION
 
     void cargarReparacion();
     void mostrarTodas();
-    void buscarReparacion();
+    void buscarReparacion(); // POR CODIGO DE REPARACION
 
 };

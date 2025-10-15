@@ -117,3 +117,24 @@ bool clsFecha:: operator == (clsFecha clsFecha)
 
     return true;
 }
+
+
+
+/// SI LOS VALORES PARECEN VALIDOS
+
+bool clsFecha::setFecha(int dia, int mes, int anio)
+{
+    _dia = dia;
+    _mes = mes;
+    _anio = anio;
+
+    if (validarFecha()) {
+        return true;
+    } else {
+        // Restaurar a default
+        setDia(1);
+        setMes(1);
+        setAnio(1900);
+        return false;
+    }
+}
