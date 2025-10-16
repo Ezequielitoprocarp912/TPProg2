@@ -201,6 +201,8 @@ bool clsGestorReparacion::cargarUnaReparacion(clsReparacion &reparacion)
     reparacion.setFechaIngreso(F_ingreso);
     std::cout << "\nFecha cargada correctamente: " << F_ingreso.mostrar() << std::endl;
 
+
+
     return true;
 }
 
@@ -314,7 +316,7 @@ void clsGestorReparacion::mostrarTodas()
 
     while(fread(&reparacion, sizeof(clsReparacion), 1, file))
     {
-        if(reparacion.getEstado()==true)
+        if( reparacion.getEstado()==true )
         {
             mostrarUnaReparacion(reparacion);
         }

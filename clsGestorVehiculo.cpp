@@ -4,18 +4,21 @@
 #include <limits>
 #include <cstring>
 #include "clsVehiculo.h"
+#include "clsCliente.h"
 #include "clsGestorVehiculo.h"
 
 /// CONSTRUCTOR
+/// EL ARCHIVO SE CREA EN GUARDAR EN DISCO ( CLS VEHICULO VEHICULO ) AUTOMATICAMENTE EN LA CARPETA DONDE SE EJECUTA EL PROGRAMA
 clsGestorVehiculo::clsGestorVehiculo()
 {
     _rutaDireccion = "Vehiculo.dat";
 }
 
 
-///METODOS DE MANIPULACION
+///METODOS DE MANIPULACION ESTO EVALUA EL RANGO MAXIMO Y MINIMO
 bool clsGestorVehiculo::ev(std::string texto, int minimo, int maximo)
 {
+    /// SE USA SIZE() XQ DEVUELVE LA CANTIDAD DE CARACTERES QUE CONTIENE STD:: STRING SIN CONTAR EL TERMINADOR '\0'
     if( (texto.size()>=minimo)&&(texto.size()<=maximo))
     {
         return true;
@@ -31,6 +34,7 @@ bool clsGestorVehiculo::ev(std::string texto, int minimo, int maximo)
 
 void clsGestorVehiculo::cargarUnVehiculo(clsVehiculo &vehiculo)
 {
+    ///ACA LOS CASTEAMOS TEMPORALMENTE A STRING PARA PODER USAR SIZE Y TENER LA CANTIDAD DE CARACTERES, YA QUE SIZEOF TRABAJA CON BYTES
     std::string numPatente;
     std::string marca;
     std::string modelo;
@@ -42,7 +46,7 @@ void clsGestorVehiculo::cargarUnVehiculo(clsVehiculo &vehiculo)
     do
     {
         std::cout << "PATENTE: ";
-        std::getline(std::cin, numPatente);
+        std::getline(std::cin, numPatente); ///LEE EL TEXTO INCLUIDO EL ESPACIO AAA
     }
     while(!(ev(numPatente, 6, 7)));
 
@@ -68,6 +72,8 @@ void clsGestorVehiculo::cargarUnVehiculo(clsVehiculo &vehiculo)
     }
     while(!(ev(modelo, 1, 20)));
 
+    /// ¿ QUE HACE .C_STR ?
+    /// CONVIERTE UN STRING EN PUNTERO CONST CHAR *
     vehiculo.setModelo(modelo.c_str());
 
 
@@ -79,11 +85,12 @@ void clsGestorVehiculo::cargarUnVehiculo(clsVehiculo &vehiculo)
         std::cout << "INGRESE UN NUMERO DE TIPO: ";
         std::getline(std::cin, tipoVehiculo);
     }
+    ///SU LONGITUD TIENE QUE SER 1 SI O SI [ 1 2 3 4 ] SOLO SALE CUANDO AMBAS VALIDACIONES SON CORRECTAS
     while(!(ev(tipoVehiculo, 1, 1)) || (tipoVehiculo != "1" && tipoVehiculo != "2" && tipoVehiculo != "3" && tipoVehiculo != "4"));
 
-    tipo=tipoVehiculo[0];
+    tipo=tipoVehiculo[0]; ///TOMA EL 1ER CARACTER DEL STRING Y LO GUARDA
 
-    vehiculo.setTipoVehiculo(tipo);
+    vehiculo.setTipoVehiculo(tipo); ///SE ASIGNA AL OBJETO QUE SE USA DESPUES EN EL SWITCH
     vehiculo.setEstado(true);
 }
 
@@ -116,11 +123,12 @@ void clsGestorVehiculo::mostrarUnVehiculo(clsVehiculo vehiculo)
     std::cout << std::endl << std::endl;
 }
 
-
+/// ACA SE CREA EL ARCHIVO
 bool clsGestorVehiculo::guardarEnDiscoVehiculo(clsVehiculo vehiculo)
 {
     FILE *file;
-    file = fopen(_rutaDireccion.c_str(), "ab+");
+    /// AB IGNORA EL FSEEK Y SIEMPRE ESCRIBE AL FINAL ENTONCES NO MODIFICA NADA
+    file = fopen(_rutaDireccion.c_str(), "ab+"); /// APPEND ESCRIBE AL FINAL DEL ARCHIVO - SI NO EXISTE LO CREA
 
     if(file==NULL)
     {
@@ -133,11 +141,13 @@ bool clsGestorVehiculo::guardarEnDiscoVehiculo(clsVehiculo vehiculo)
     return grabar;
 }
 
-
+///SOBRESCRIBIR O DAR DE BAJA
 bool clsGestorVehiculo::guardarEnDiscoVehiculo(clsVehiculo vehiculo, int posicion)
 {
     bool grabar;
     FILE *file;
+    /// RB+ PERMITE LEER Y ESCRIBIR NO CREA NADA + EMPIEZA AL PRINCIPIO SIRVE PARA MODIFICAR O DAR DE BAJA
+    /// RB HARIA FALLAR AL FWRITE
     file = fopen(_rutaDireccion.c_str(), "rb+");
 
     if(file==NULL)
@@ -187,7 +197,7 @@ clsVehiculo clsGestorVehiculo::leerVehiculo(int posicion)
     clsVehiculo vehiculo;
     FILE *file;
     ///
-    file = fopen(_rutaDireccion.c_str(),"rb");
+    file = fopen(_rutaDireccion.c_str(),"rb"); ///SI PONGO + LO CREA
 
     if(file == NULL)
     {
@@ -219,7 +229,7 @@ void clsGestorVehiculo::cargarVehiculo()
     }
 
 
-    check=guardarEnDiscoVehiculo(vehiculoNuevo);
+    check=guardarEnDiscoVehiculo(vehiculoNuevo); /// DEVUELVE TRUE O FALSE SI PUDO GUARDAR EN EL DISCO
     if(check==true)
     {
         std::cout << "Vehiculo guardado exitosamente" << std::endl;
@@ -268,7 +278,7 @@ void clsGestorVehiculo::modificarVehiculo()
                 std::cout << "MARCA: ";
                 std::getline(std::cin, marca);
             }
-            while(!(ev(marca, 1, 20)));
+             while(!(ev(marca, 1, 20)));
 
             vehiculo.setMarca(marca.c_str());
         }
@@ -330,6 +340,7 @@ void clsGestorVehiculo::mostrarTodos()
 {
     clsVehiculo vehiculo;
 
+
     FILE *file;
     file = fopen(_rutaDireccion.c_str(), "rb");
 
@@ -341,7 +352,7 @@ void clsGestorVehiculo::mostrarTodos()
 
     while(fread(&vehiculo, sizeof(clsVehiculo), 1, file))
     {
-        if(vehiculo.getEstado()==true)
+        if( (vehiculo.getEstado()==true) )
         {
             mostrarUnVehiculo(vehiculo);
         }
@@ -401,3 +412,70 @@ void clsGestorVehiculo::buscarVehiculo()
         std::cout << "Error. El vehiculo es inexistente" << std::endl;
     }
 }
+
+/**
+1) POR QUE BUSCAR POR PATENTE PREGUNTA SI ES DISTINTO DE -1 PARA SABER SI YA ES EXISTENTE
+///EJECUCION DE OPCIONES
+void clsGestorVehiculo::cargarVehiculo()
+{
+    clsVehiculo vehiculoNuevo;
+    bool check;
+
+    cargarUnVehiculo(vehiculoNuevo);
+
+    if((buscarVehiculoPorPatente(vehiculoNuevo.getNumeroPatente()))!=-1)
+    {
+        system("cls");
+        std::cout << "Error. Vehiculo ya existente." << std::endl;
+        return;
+    }
+
+
+
+    MIREMOS EL DESARROLLO DE BUSCAR VEHICULO X PATENTE
+
+
+
+    int clsGestorVehiculo::buscarVehiculoPorPatente(const char* patente)
+{
+    int posicion;
+    clsVehiculo vehiculo;
+    FILE *file;
+    file = fopen(_rutaDireccion.c_str(), "rb");
+
+    if(file == NULL)
+    {
+        return -1;
+    }
+
+    int i=0;
+    while(fread(&vehiculo, sizeof(clsVehiculo), 1, file))
+    {
+        if(strcmp(vehiculo.getNumeroPatente(), patente)==0)
+        {
+            posicion = i;
+            fclose(file);
+            return posicion;
+        }
+        i++;
+    }
+
+    fclose(file);
+    return -1; /// RETORNA -1 YA QUE NO ENCONTRO LA PATENTE.
+}
+
+ESTA FUNCION 1RO PIDE UNA PATENTE DE TIPO CHAR, CON SRING COMPARE Y EL GET PATENTE LAS COMPARA, SI ES IGUAL A 0 SON IDENTICAS
+ENTONCES SI POSICION ES != -1 ESTA DEVOLVIENDO LA POSICION CORRECTA DEL VEHICULO EN EL ARCHIVO
+
+        SIEZEOF(); DEVUELVE EL TAMAÑO EN BYTES!!!! DEL OBJETO TEXTO, ES DECIR DE LA ESTRUCTURA INTERNA DE STD::STRING
+        NO DE SU CONTENIDO!! POR ESO NO SIRVE PARA MEDIR CUANTOS CARACTERTES TIENE EL TEXTO
+
+
+        std::string palabra = "auto";
+
+std::cout << palabra.size() << std::endl;   // + Imprime 4
+std::cout << sizeof(palabra) << std::endl;  // + Imprime algo como 32 (depende del compilador)
+
+
+
+*/
