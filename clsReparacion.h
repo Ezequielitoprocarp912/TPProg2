@@ -40,5 +40,8 @@ class clsReparacion
         std::string getFechaIngreso();
         std::string getFechaReparado();
         std::string getFechaEgreso();
+        clsFecha getOBJ_FechaIngreso();
+        clsFecha getOBJ_FechaReparado();
+        clsFecha getOBJ_FechaEgreso();
         bool getEstado();
 };

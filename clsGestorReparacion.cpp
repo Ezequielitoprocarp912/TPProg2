@@ -16,7 +16,8 @@ clsGestorReparacion::clsGestorReparacion()
 /// METODOS DE MANIPULACION EV
 bool clsGestorReparacion::ev(std::string texto, int minimo, int maximo)
 {
-    if((texto.size()>=minimo)&&(texto.size()<=maximo))
+    //if((texto.size()>=minimo)&&(texto.size()<=maximo))
+    if (static_cast<int>(texto.size()) >= minimo && static_cast<int>(texto.size()) <= maximo)
     {
         return true;
     }
@@ -201,16 +202,54 @@ bool clsGestorReparacion::cargarUnaReparacion(clsReparacion &reparacion)
     reparacion.setFechaIngreso(F_ingreso);
     std::cout << "\nFecha cargada correctamente: " << F_ingreso.mostrar() << std::endl;
 
+
+
     return true;
+}
+
+
+///MOSTRAR REPARACION POR ANIO
+void clsGestorReparacion::mostrarPorAnio()
+{
+    int anioBuscado;
+    std::cout << "Ingrese el anio que desea filtrar: ";
+    std::cin >> anioBuscado;
+
+    clsReparacion reparacion;
+    FILE *p = fopen(_rutaDireccion.c_str(), "rb");
+    if (p == NULL)
+    {
+        std::cout << "No hay reparaciones cargadas actualmente.\n";
+        return;
+    }
+
+    bool encontrada = false;
+
+    while (fread(&reparacion, sizeof(clsReparacion), 1, p))
+    {
+        if (reparacion.getOBJ_FechaIngreso().getAnio() == anioBuscado)
+        {
+            mostrarUnaReparacion(reparacion);
+            encontrada = true;
+        }
+    }
+
+    fclose(p);
+
+    if (!encontrada)
+    {
+        std::cout << "No se encontraron reparaciones del anio " << anioBuscado << ".\n";
+    }
 }
 
 
 
 
-
-
+/// MOSTRAR 1 REPARACION
 void clsGestorReparacion::mostrarUnaReparacion(clsReparacion reparacion)
 {
+
+
     std::cout << "CODIGO DE REPARACION: " << reparacion.getCodReparacion() << std::endl;
     std::cout << "DESCRIPCION DE FALLA: " << reparacion.getDescripcionFalla() << std::endl;
     std::cout << "CLIENTE: " << reparacion.getCliente().getCuit() << std::endl;
@@ -294,7 +333,7 @@ void clsGestorReparacion::cargarReparacion()
         guardarEnDiscoReparacion(reparacionNueva);
         std::cout << "Reparacion guardada correctamente.\n";
     } else {
-        std::cout << "No se guardó la reparación (faltan datos válidos).\n";
+        std::cout << "No se guardó la reparacion (faltan datos validos).\n";
     }
 }
 
@@ -312,9 +351,11 @@ void clsGestorReparacion::mostrarTodas()
         return;
     }
 
+
+
     while(fread(&reparacion, sizeof(clsReparacion), 1, file))
     {
-        if(reparacion.getEstado()==true)
+        if( (reparacion.getEstado()==true) || (reparacion.getEstado()==false) )
         {
             mostrarUnaReparacion(reparacion);
         }

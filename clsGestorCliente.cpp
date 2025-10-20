@@ -15,7 +15,10 @@ clsGestorCliente::clsGestorCliente()
 /// MÉTODOS DE MANIPULACIÓN
 bool clsGestorCliente::ev(std::string texto, int minimo, int maximo)
 {
-    if((texto.size()>=minimo)&&(texto.size()<=maximo))
+    //texto.size() DEVUELVE UN VALOR DE TIPO std::string::size_type (SIN SIGNO)
+    // PARA EVITAR ERRORES CON VALORES NEGATIVOS, CASTEAMOS A INT (CON SIGNO)
+    //if((texto.size()>=minimo)&&(texto.size()<=maximo))
+    if (static_cast<int>(texto.size()) >= minimo && static_cast<int>(texto.size()) <= maximo)
     {
         return true;
     }
@@ -132,7 +135,10 @@ void clsGestorCliente::mostrarUnCliente(clsCliente cliente)
     std::cout << "MAIL: " << cliente.getMail() << std::endl;
     std::cout << "DIRECCION: " << cliente.getDireccion() << std::endl;
     std::cout << "TIPO DE CLIENTE: " << (cliente.getTipoCliente() == '1' ? "Particular" : "Empresa") << std::endl; /// operador ternario
-    std::cout << "-----------------------------------";
+    std::cout << "ESTADO: ";
+    if (cliente.getEstado()==true) {std::cout<< "ACTIVO " <<std::endl;}
+    else if (!cliente.getEstado()) {std::cout<< "INACTIVO " <<std::endl;}
+    std::cout << "-----------------------------------\n";
     std::cout << std::endl;
 }
 
@@ -205,6 +211,7 @@ void clsGestorCliente::cargarCliente()
         std::cout << "ERROR: No se pudo guardar el cliente";
 }
 
+///MODIFICAR CLIENTE
 void clsGestorCliente::modificarCliente()
 {
     char opcion;
@@ -227,12 +234,24 @@ void clsGestorCliente::modificarCliente()
 
         system("pause");
 
-        std::cout << "\n 1) Nombre\n 2) Apellido\n 3) Mail\n 4) Telefono\n 5) Direccion\n 6) Tipo de cliente\n " << std::endl;
+        /// MINI VALIDACION :)
+        if (!cliente.getEstado()) {
+            std::cout << "El cliente esta dado de baja y no puede modificarse.";
+            return;
+        }
+
+
+        do {
+        std::cout << "\n 1) Nombre\n 2) Apellido\n 3) Mail\n 4) Telefono\n 5) Direccion\n 6) Tipo de cliente\n 0) SALIR  " << std::endl;
         std::cout << "Ingrese opcion de dato a cambiar: ";
         std::cin >> opcion;
         std::cin.ignore();
+        system("cls");
+
 
         switch(opcion)
+
+
         {
         case '1':
         {
@@ -320,8 +339,14 @@ void clsGestorCliente::modificarCliente()
             cliente.setTipoCliente(tipo);
         }
         break;
+
+        case '0': {break;}
+
+        default: system("cls");
         }
 
+        }while (opcion!='0');
+        ///ACA
 
         ///EDITA EL VEHICULO EN SU POSICION CORRESPONDIENTE
         if (guardarEnDiscoCliente(cliente, pos))
@@ -341,7 +366,34 @@ void clsGestorCliente::modificarCliente()
     }
 }
 
+/// ESTO MUESTRA CLIENTES ACTIVOS O INACTIVOS
+void clsGestorCliente::mostrar_Activos_Inactivos()
+{
+    int opcion;
+    clsCliente cliente;
+    FILE *puntero = fopen(_rutaDireccion.c_str(), "rb");
+    if ( puntero == NULL)
+    {
+        std::cout << "No hay clientes cargados actualmente.";
+        return;
+    }
+    std::cout << "1 ACTIVOS - 2 INACTIVOS ";
+    std::cin>>opcion;
+    while (fread(&cliente, sizeof(clsCliente), 1, puntero))
+    {
+        if ( (cliente.getEstado()==true) && (opcion==1) )
+        {
+            mostrarUnCliente(cliente);
+        }
+        else if ( (cliente.getEstado()==false) && (opcion==2) )
+        {
+            mostrarUnCliente(cliente);
+        }
+    }
+}
 
+
+/// ESTO MUESTRA LOS CLIENTES ACTIVOS E INACTIVOS
 void clsGestorCliente::mostrarTodos()
 {
     clsCliente cliente;
@@ -354,7 +406,7 @@ void clsGestorCliente::mostrarTodos()
 
     while (fread(&cliente, sizeof(clsCliente), 1, p))
     {
-        if (cliente.getEstado())
+        if ( (cliente.getEstado()==true) || (cliente.getEstado()==false))
             mostrarUnCliente(cliente);
     }
     fclose(p);

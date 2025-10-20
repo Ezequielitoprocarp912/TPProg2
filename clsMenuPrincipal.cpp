@@ -79,6 +79,7 @@ void clsMenuPrincipal::mostrarMenuClientes()
     std::cout << "3-Baja cliente" << std::endl;
     std::cout << "4-Mostrar todos los clientes" << std::endl;
     std::cout << "5-Buscar por CUIT" << std::endl;
+    std::cout << "6-MOSTRAR CLIENTES [ ACTIVOS | INACTIVOS ]" << std::endl;
     std::cout << "0 === VOLVER ===" << std::endl;
 }
 
@@ -117,6 +118,11 @@ void clsMenuPrincipal::opcionesMenuClientes()
         gestorClientes.buscarCliente();
         system("pause");
         break;
+    case 6:
+        system("cls");
+        gestorClientes.mostrar_Activos_Inactivos();
+        system("pause");
+        break;
 
     case 0:
         return;
@@ -145,7 +151,8 @@ void clsMenuPrincipal::mostrarMenuVehiculos()
     std::cout << "2-Modificar vehiculo" << std::endl;
     std::cout << "3-Baja vehiculo" << std::endl;
     std::cout << "4-Mostrar todos los vehiculos" << std::endl;
-    std::cout << "5-Buscar por PATENTE" << std::endl;
+    std::cout << "5 Mostrar vehiculos [ ACTIVOS | INACTIVOS ] " << std::endl;
+    std::cout << "6-Buscar por PATENTE" << std::endl;
     std::cout << "0 === VOLVER ===" << std::endl;
 }
 
@@ -182,6 +189,12 @@ void clsMenuPrincipal::opcionesMenuVehiculos()
 
     case 5:
         system("cls");
+        gestorVehiculos.mostrar_Activos_Inactivos();
+        system("pause");
+        break;
+
+    case 6:
+        system("cls");
         gestorVehiculos.buscarVehiculo();
         system("pause");
         break;
@@ -211,6 +224,7 @@ void clsMenuPrincipal::mostrarMenuReparaciones()
     std::cout << "1-Cargar reparacion" << std::endl;
     std::cout << "2-Mostrar reparacion por codigo de reparacion" << std::endl;
     std::cout << "3-Mostrar todas las reparaciones activas" << std::endl;
+    std::cout << "4-Mostrar POR ANIO todas las reparaciones activas " << std::endl;
     std::cout << "0 === VOLVER ===" << std::endl;
 }
 
@@ -237,6 +251,11 @@ void clsMenuPrincipal::opcionesMenuReparaciones()
         gestorReparacion.mostrarTodas();
         system("pause");
         break;
+
+    case 4:
+        system("cls");
+        gestorReparacion.mostrarPorAnio();
+        system("pause");
 
     case 0:
         return;
