@@ -19,7 +19,7 @@ clsGestorVehiculo::clsGestorVehiculo()
 bool clsGestorVehiculo::ev(std::string texto, int minimo, int maximo)
 {
     /// SE USA SIZE() XQ DEVUELVE LA CANTIDAD DE CARACTERES QUE CONTIENE STD:: STRING SIN CONTAR EL TERMINADOR '\0'
-    if( (texto.size()>=minimo)&&(texto.size()<=maximo))
+    if((texto.size()>=minimo)&&(texto.size()<=maximo))
     {
         return true;
     }

@@ -44,6 +44,8 @@
 		<Unit filename="clsGestorVehiculo.h" />
 		<Unit filename="clsMenuPrincipal.cpp" />
 		<Unit filename="clsMenuPrincipal.h" />
+		<Unit filename="clsPersona.cpp" />
+		<Unit filename="clsPersona.h" />
 		<Unit filename="clsReparacion.cpp" />
 		<Unit filename="clsReparacion.h" />
 		<Unit filename="clsVehiculo.cpp" />
