@@ -9,8 +9,8 @@ class clsMenuPrincipal
 
     public:
     ///METODOS
+
         void mostrar();
-        void elegirOpcion();
         void opcionesMenu();
         void ejecutarMenuPrincipal();
         //
