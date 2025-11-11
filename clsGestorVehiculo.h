@@ -25,4 +25,5 @@ public:
     void mostrarTodos();
     void bajaVehiculo();
     void buscarVehiculo();
+    void OrdenarXPatente ();
 };

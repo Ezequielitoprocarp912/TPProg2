@@ -1,6 +1,7 @@
 ///GESTOR VEHICULO CPP
 #include <iostream>
 #include <cstdio>
+#include <cctype>
 #include <limits>
 #include <cstring>
 #include "clsVehiculo.h"
@@ -38,15 +39,22 @@ void clsGestorVehiculo::cargarUnVehiculo(clsVehiculo &vehiculo)
 
     std::cin.ignore();
 
-    ///PATENTE
-    do
-    {
-        std::cout << "PATENTE: ";
-        std::getline(std::cin, numPatente);
-    }
-    while(!(ev(numPatente, 6, 7)));
+///PATENTE
+do
+{
+    std::cout << "PATENTE: ";
+    std::getline(std::cin, numPatente);
 
-    vehiculo.setNumeroPatente(numPatente.c_str());
+    // Convertir automáticamente a mayúsculas
+    for (char &c : numPatente)
+    {
+        c = toupper(static_cast<unsigned char>(c));
+    }
+
+} while(!(ev(numPatente, 6, 7)));
+
+vehiculo.setNumeroPatente(numPatente.c_str());
+
 
 
     ///MARCA
@@ -401,3 +409,111 @@ void clsGestorVehiculo::buscarVehiculo()
         std::cout << "Error. El vehiculo es inexistente" << std::endl;
     }
 }
+
+
+int obtenerCantidadReg (std::string pfile, clsVehiculo obj)
+{
+    FILE *p = fopen(pfile.c_str(), "rb");
+    if (p == NULL)
+    {
+        std::cout << "No hay datos cargados actualmente.";
+        return 0;
+    }
+
+    int cont = 0;
+    while (fread(&obj, sizeof(clsVehiculo), 1, p))
+    {
+        if (obj.getEstado())
+        {
+            cont++;
+        }
+    }
+
+    fclose(p);
+
+    return cont;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+void clsGestorVehiculo::OrdenarXPatente()
+{
+    clsVehiculo vehiculo;
+    FILE *p = fopen(_rutaDireccion.c_str(), "rb");
+
+    if (p == NULL)
+    {
+        std::cout << "No hay vehículos cargados actualmente." << std::endl;
+        system("pause");
+        return;
+    }
+
+    int cantidad = obtenerCantidadReg(_rutaDireccion.c_str(), vehiculo);
+    if (cantidad <= 0)
+    {
+        std::cout << "No hay vehículos cargados actualmente." << std::endl;
+        fclose(p);
+        system("pause");
+        return;
+    }
+
+    clsVehiculo *vecVehiculos = new clsVehiculo[cantidad];
+    rewind(p);
+
+    int i = 0;
+    while (fread(&vehiculo, sizeof(clsVehiculo), 1, p))
+    {
+        if (vehiculo.getEstado() == true)
+        {
+            vecVehiculos[i] = vehiculo;
+            i++;
+        }
+    }
+    fclose(p);
+
+    if (i == 0)
+    {
+        std::cout << "No hay vehículos activos para mostrar." << std::endl;
+        delete[] vecVehiculos;
+        system("pause");
+        return;
+    }
+
+    /// ORDENAR POR NÚMERO DE PATENTE (alfabéticamente)
+    for (int a = 0; a < i - 1; a++)
+    {
+        for (int b = a + 1; b < i; b++)
+        {
+            if (strcmp(vecVehiculos[a].getNumeroPatente(), vecVehiculos[b].getNumeroPatente()) > 0)
+            {
+                clsVehiculo aux = vecVehiculos[a];
+                vecVehiculos[a] = vecVehiculos[b];
+                vecVehiculos[b] = aux;
+            }
+        }
+    }
+
+    std::cout << "\n=== VEHÍCULOS ORDENADOS POR PATENTE (A-Z) ===" << std::endl;
+    for (int j = 0; j < i; j++)
+    {
+        mostrarUnVehiculo(vecVehiculos[j]);
+        std::cout << std::endl;
+    }
+
+    delete[] vecVehiculos;
+
+    std::cout << "\n=== Fin del listado ===" << std::endl;
+    system("pause");
+}
+

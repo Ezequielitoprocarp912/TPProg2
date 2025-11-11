@@ -2,6 +2,7 @@
 #include <cstdio>
 #include <limits>
 #include <cstring>
+#include <cctype>
 #include "clsGestorCliente.h"
 #include "clsCliente.h"
 
@@ -468,35 +469,39 @@ int obtenerCantidadReg (std::string pfile, clsCliente obj)
     delete [] vecClientes;
 }*/
 
+
+///ORDENAR X CUIT ( MUESTRA PRIMERO AL MAS JOVEN )
 void clsGestorCliente::mostrarTodosxCUIT()
 {
     clsCliente cliente;
     FILE *p = fopen(_rutaDireccion.c_str(), "rb");
+
     if (p == NULL)
     {
         std::cout << "No hay clientes cargados actualmente." << std::endl;
         return;
     }
 
-    clsCliente c;
-    int cantidad = obtenerCantidadReg("Clientes.dat", c);
+    int cont = obtenerCantidadReg(_rutaDireccion.c_str(), cliente);
 
-    if (cantidad <= 0)
+    if (cont <= 0)
     {
         std::cout << "No hay clientes cargados actualmente." << std::endl;
         fclose(p);
         return;
     }
 
-    // Declarar el puntero antes del if
-    clsCliente *vecClientes = new clsCliente[cantidad];
 
-    // Cargar los clientes activos en el vector
+    clsCliente *vecClientes = new clsCliente[cont];
+
+
     rewind(p);
+
+
     int i = 0;
     while (fread(&cliente, sizeof(clsCliente), 1, p))
     {
-        if (cliente.getEstado())
+        if (cliente.getEstado()==true)
         {
             vecClientes[i] = cliente;
             i++;
@@ -504,15 +509,8 @@ void clsGestorCliente::mostrarTodosxCUIT()
     }
     fclose(p);
 
-    // Si no hay clientes activos
-    if (i == 0)
-    {
-        std::cout << "No hay clientes activos actualmente." << std::endl;
-        delete[] vecClientes;
-        return;
-    }
 
-    // Ordenar por CUIT (ascendente)
+    ///ORDENAR
     for (int a = 0; a < i - 1; a++)
     {
         for (int b = a + 1; b < i; b++)
@@ -526,8 +524,7 @@ void clsGestorCliente::mostrarTodosxCUIT()
         }
     }
 
-
-    // Mostrar los clientes
+    ///MOSTRAR
     std::cout << "=== CLIENTES ORDENADOS POR CUIT (MENOR A MAYOR) ===" << std::endl;
     for (int j = 0; j < i; j++)
     {
@@ -537,4 +534,3 @@ void clsGestorCliente::mostrarTodosxCUIT()
 
     delete[] vecClientes;
 }
-

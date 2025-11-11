@@ -16,6 +16,7 @@ public:
     void cargarUnCliente(clsCliente &);
     void mostrarUnCliente(clsCliente);
 
+
     /// MÉTODOS DE ARCHIVO
     bool guardarEnDiscoCliente(clsCliente);
     bool guardarEnDiscoCliente(clsCliente, int);
@@ -29,4 +30,5 @@ public:
     void bajaCliente();
     void buscarCliente();
     void mostrarTodosxCUIT();
+
 };
