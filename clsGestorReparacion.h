@@ -28,5 +28,7 @@ public:
     void cargarReparacion();
     void mostrarTodas();
     void buscarReparacion(); // POR CODIGO DE REPARACION
+    void cantidadReparacionesPorFecha(int mes, int anio);
+    std::string mesToString(int mes);
 
 };

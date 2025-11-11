@@ -201,8 +201,6 @@ bool clsGestorReparacion::cargarUnaReparacion(clsReparacion &reparacion)
     reparacion.setFechaIngreso(F_ingreso);
     std::cout << "\nFecha cargada correctamente: " << F_ingreso.mostrar() << std::endl;
 
-
-
     return true;
 }
 
@@ -217,7 +215,7 @@ void clsGestorReparacion::mostrarUnaReparacion(clsReparacion reparacion)
     std::cout << "DESCRIPCION DE FALLA: " << reparacion.getDescripcionFalla() << std::endl;
     std::cout << "CLIENTE: " << reparacion.getCliente().getCuit() << std::endl;
     std::cout << "VEHICULO: " << reparacion.getVehiculo().getNumeroPatente() << std::endl;
-    std::cout << "FECHA DE INGRESO: " << reparacion.getFechaIngreso() << std::endl;
+    std::cout << "FECHA DE INGRESO: " << reparacion.getFechaIngreso().mostrar() << std::endl;
     std::cout << "-----------------------------------";
     std::cout << std::endl;
 }
@@ -316,7 +314,7 @@ void clsGestorReparacion::mostrarTodas()
 
     while(fread(&reparacion, sizeof(clsReparacion), 1, file))
     {
-        if( reparacion.getEstado()==true )
+        if(reparacion.getEstado()==true)
         {
             mostrarUnaReparacion(reparacion);
         }
@@ -353,6 +351,71 @@ void clsGestorReparacion::buscarReparacion()
 }
 
 
+
+///NUEVO METODO
+
+std::string clsGestorReparacion::mesToString(int mes)
+{
+    switch (mes) {
+        case 1: return "Enero";
+        case 2: return "Febrero";
+        case 3: return "Marzo";
+        case 4: return "Abril";
+        case 5: return "Mayo";
+        case 6: return "Junio";
+        case 7: return "Julio";
+        case 8: return "Agosto";
+        case 9: return "Septiembre";
+        case 10: return "Octubre";
+        case 11: return "Noviembre";
+        case 12: return "Diciembre";
+        default: return "Mes inválido"; // Para proteger en caso de que llegue un valor fuera del rango 1-12
+    }
+}
+
+
+
+
+
+
+
+void clsGestorReparacion::cantidadReparacionesPorFecha(int mes, int anio)
+{
+    clsReparacion reparacion;
+    FILE *file = fopen(_rutaDireccion.c_str(), "rb");
+
+    if (file == NULL) {
+        std::cout << "No hay reparaciones cargadas actualmente." << std::endl;
+        return;
+    }
+
+    int contador = 0;
+    while (fread(&reparacion, sizeof(clsReparacion), 1, file)) {
+        if (reparacion.getEstado() == true) {  // Asegurarse de que la reparación esté activa
+            clsFecha fechaIngreso = reparacion.getFechaIngreso();  // Obtener la fecha de ingreso
+
+            // Comprobar si la fecha de ingreso es válida (no es la fecha predeterminada)
+            if (fechaIngreso.getDia() != 1 || fechaIngreso.getMes() != 1 || fechaIngreso.getAnio() != 1900) {
+                int mesReparacion = fechaIngreso.getMes();
+                int anioReparacion = fechaIngreso.getAnio();
+
+                // Si el mes y año coinciden, incrementar el contador
+                if (mesReparacion == mes && anioReparacion == anio) {
+                    contador++;
+                }
+            }
+        }
+    }
+
+    fclose(file);
+
+    // Mostrar resultado
+    if (contador > 0) {
+        std::cout << "Cantidad de reparaciones en el mes " << mesToString(mes) << " del año " << anio << ": " << contador << std::endl;
+    } else {
+        std::cout << "No hay reparaciones en el mes " << mesToString(mes) << " del año " << anio << "." << std::endl;
+    }
+}
 
 
 

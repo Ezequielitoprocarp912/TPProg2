@@ -2,6 +2,7 @@
 #include <cstdio>
 #include <limits>
 #include <cstring>
+#include <cctype>
 #include "clsGestorCliente.h"
 #include "clsCliente.h"
 
@@ -319,6 +320,7 @@ void clsGestorCliente::modificarCliente()
             tipo=tipoCliente[0];
             cliente.setTipoCliente(tipo);
         }
+
         break;
         }
 
@@ -398,4 +400,137 @@ void clsGestorCliente::buscarCliente()
         mostrarUnCliente(cliente);
     else
         std::cout << "El cliente está dado de baja o inactivo";
+}
+
+
+int obtenerCantidadReg (std::string pfile, clsCliente obj)
+{
+    FILE *p = fopen(pfile.c_str(), "rb");
+    if (p == NULL)
+    {
+        std::cout << "No hay datos cargados actualmente.";
+        return 0;
+    }
+
+    int cont = 0;
+    while (fread(&obj, sizeof(clsCliente), 1, p))
+    {
+        if (obj.getEstado())
+        {
+            cont++;
+        }
+    }
+
+    fclose(p);
+
+    return cont;
+}
+
+/*void clsGestorCliente::mostrarTodosxCUIT()
+{
+    //int contClientes = 0;
+
+    clsCliente cliente;
+    FILE *p = fopen(_rutaDireccion.c_str(), "rb");
+    if (p == NULL)
+    {
+        std::cout << "No hay clientes cargados actualmente.";
+        return;
+    }
+
+
+    clsCliente c;
+    int cantidad = obtenerCantidadReg("Clientes.dat", c);
+
+    if (cantidad > 0)
+    {
+        clsCliente *vecClientes = new clsCliente[cantidad];
+    }
+    else
+    {
+        std::cout << "No hay clientes cargados actualmente." << std::endl;
+    }
+
+
+
+    ///GRABO EN EL VECTOR LOS CLIENTES
+    rewind(p);
+    int i = 0;
+    while (fread(&cliente, sizeof(clsCliente), 1, p))
+    {
+        if (cliente.getEstado())
+        {
+            vecClientes[i]=cliente;
+            i++;
+        }
+    }
+
+    fclose(p);
+    delete [] vecClientes;
+}*/
+
+
+///ORDENAR X CUIT ( MUESTRA PRIMERO AL MAS JOVEN )
+void clsGestorCliente::mostrarTodosxCUIT()
+{
+    clsCliente cliente;
+    FILE *p = fopen(_rutaDireccion.c_str(), "rb");
+
+    if (p == NULL)
+    {
+        std::cout << "No hay clientes cargados actualmente." << std::endl;
+        return;
+    }
+
+    int cont = obtenerCantidadReg(_rutaDireccion.c_str(), cliente);
+
+    if (cont <= 0)
+    {
+        std::cout << "No hay clientes cargados actualmente." << std::endl;
+        fclose(p);
+        return;
+    }
+
+
+    clsCliente *vecClientes = new clsCliente[cont];
+
+
+    rewind(p);
+
+
+    int i = 0;
+    while (fread(&cliente, sizeof(clsCliente), 1, p))
+    {
+        if (cliente.getEstado()==true)
+        {
+            vecClientes[i] = cliente;
+            i++;
+        }
+    }
+    fclose(p);
+
+
+    ///ORDENAR
+    for (int a = 0; a < i - 1; a++)
+    {
+        for (int b = a + 1; b < i; b++)
+        {
+            if (vecClientes[a].getCuit() > vecClientes[b].getCuit())
+            {
+                clsCliente aux = vecClientes[a];
+                vecClientes[a] = vecClientes[b];
+                vecClientes[b] = aux;
+            }
+        }
+    }
+
+    ///MOSTRAR
+    std::cout << "=== CLIENTES ORDENADOS POR CUIT (MENOR A MAYOR) ===" << std::endl;
+    for (int j = 0; j < i; j++)
+    {
+        mostrarUnCliente(vecClientes[j]);
+        std::cout << std::endl;
+    }
+
+    delete[] vecClientes;
 }
