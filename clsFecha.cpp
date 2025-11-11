@@ -92,7 +92,7 @@ clsFecha::clsFecha(int dia, int mes, int anio)
 ///METODOS PUBLICOS
 std::string clsFecha::mostrar()
 {
-    return  std::to_string(_dia) + "/" + std::to_string(_mes) + "/" + std::to_string(_anio); /// CONVIERTE ENTERO A STRING
+    return  std::to_string(_dia) + "/" + std::to_string(_mes) + "/" + std::to_string(_anio);
 }
 
 

@@ -1,6 +1,7 @@
+///MENU PRINCIPAL CPP
 #include <iostream>
+#include <limits>
 
-#include "rlutil.h"
 #include "clsGestorCliente.h"
 #include "clsGestorVehiculo.h"
 #include "clsGestorReparacion.h"
@@ -9,388 +10,254 @@
 ///CONSTRUCTORES
 clsMenuPrincipal::clsMenuPrincipal()
 {
-    _opcion = 0;
-    _salir = false;
+    _salir=false;
 }
 
 ///METODOS MENU PRINCIPAL
-
 void clsMenuPrincipal::mostrar()
 {
-    rlutil::cls();
-    rlutil::hidecursor();
-    rlutil::setBackgroundColor(rlutil::COLOR::BLUE);
-    rlutil::setColor(rlutil::COLOR::WHITE);
-    rlutil::locate(30, 8);
-    std::cout << "TALLER MECANICO PACHECO" << std::endl;
-    rlutil::locate(30, 10);
-    std::cout << "CLIENTES" << std::endl;
-    rlutil::locate(30, 11);
-    std::cout << "VEHICULOS" << std::endl;
-    rlutil::locate(30, 12);
-    std::cout << "REPARACIONES" << std::endl;
-    rlutil::locate(30, 13);
-    std::cout << " SALIR" << std::endl;
-    rlutil::locate(28, 10 + _opcion);
-    std::cout << (char)175 << std::endl; ///DIBUJAMOS EL CURSOR
+    system("cls");
+    std::cout << "==== TALLER MECANICO PACHECO ====" << std::endl;
+    std::cout << "1-Menu Clientes" << std::endl;
+    std::cout << "2-Menu Vehiculos" << std::endl;
+    std::cout << "3-Menu Reparaciones" << std::endl;
+    std::cout << "9 === SALIR DEL MENU ===" << std::endl;
+}
+
+void clsMenuPrincipal::elegirOpcion()
+{
+    std::cout << std::endl;
+    std::cout << "INGRESE OPCION: ";
+    std::cin >> _opcion;
+    std::cout << std::endl;
 }
 
 void clsMenuPrincipal::opcionesMenu()
 {
-    switch(rlutil::getkey())
+    switch(_opcion)
     {
-    case 14: ///ARRIBA
-    {
-        rlutil::locate(28, 10 + _opcion);
-        std::cout << " " << std::endl; ///BORRAMOS EL CURSOR ANTERIOR
-
-
-        _opcion--; ///MOVEMOS EL CURSOR
-
-        if(_opcion < 0)
-        {
-            _opcion = 3;
-        }
-    }
-    break;
-    case 15: ///ABAJO
-    {
-        rlutil::locate(28, 10 + _opcion);
-        std::cout << " " << std::endl; ///BORRAMOS EL CURSOR ANTERIOR
-
-
-        _opcion++; ///MOVEMOS EL CURSOR
-
-        if(_opcion > 3)
-        {
-            _opcion = 0;
-        }
-    }
-    break;
-    case 1: ///ENTER
-    {
-        switch(_opcion)
-        {
-        case 0:
-            rlutil::cls();
-            ejecutarMenuClientes();
-            break;
-        case 1:
-            rlutil::cls();
-            ejecutarMenuVehiculos();
-            break;
-        case 2:
-            rlutil::cls();
-            ejecutarMenuReparaciones();
-            break;
-        case 3:
-            _salir=true;
-            break;
-        }
+    case 1:
+        ejecutarMenuClientes();
         break;
-    }
+
+    case 2:
+        ejecutarMenuVehiculos();
+        break;
+
+    case 3:
+        ejecutarMenuReparaciones();
+        break;
+
+    case 9:
+        _salir=true;
+        break;
+
+    default:
+        std::cout << "Error, ingrese una opcion valida" << std::endl;
+        system("pause");
     }
 }
 
 void clsMenuPrincipal::ejecutarMenuPrincipal()
 {
-    do
+    while(_salir!=true)
     {
         mostrar();
+        elegirOpcion();
         opcionesMenu();
-
     }
-    while(!_salir);
 }
 
 
 ///METODOS MENU CLIENTES
 void clsMenuPrincipal::mostrarMenuClientes()
 {
-    //rlutil::cls();
-    rlutil::hidecursor();
-    rlutil::setBackgroundColor(rlutil::COLOR::BLACK);
-    rlutil::setColor(rlutil::COLOR::WHITE);
-    rlutil::locate(30, 8);
-    std::cout << "CLIENTES" << std::endl;
-    rlutil::locate(30, 10);
-    std::cout << "CARGAR" << std::endl;
-    rlutil::locate(30, 11);
-    std::cout << "MODIFICAR" << std::endl;
-    rlutil::locate(30, 12);
-    std::cout << "BAJA" << std::endl;
-    rlutil::locate(30, 13);
-    std::cout << "MOSTRAR TODOS" << std::endl;
-    rlutil::locate(30, 14);
-    std::cout << "BUSCAR" << std::endl;
-    rlutil::locate(30, 15);
-    std::cout << " VOLVER" << std::endl;
-    rlutil::locate(28, 10 + _opcion);
-    std::cout << (char)175 << std::endl; ///DIBUJAMOS EL CURSOR
+    system("cls");
+    std::cout << "=== MENU CLIENTES ===" << std::endl;
+    std::cout << "1-Cargar cliente" << std::endl;
+    std::cout << "2-Modificar cliente" << std::endl;
+    std::cout << "3-Baja cliente" << std::endl;
+    std::cout << "4-Mostrar todos los clientes" << std::endl;
+    std::cout << "5-Buscar por CUIT" << std::endl;
+    std::cout << "6-Mostrar todos los clientes ordenados por CUIT" << std::endl;
+    std::cout << "0 === VOLVER ===" << std::endl;
 }
 
 void clsMenuPrincipal::opcionesMenuClientes()
 {
     clsGestorCliente gestorClientes;
 
-    switch(rlutil::getkey())
+    switch(_opcion)
     {
-    case 14: ///ARRIBA
-    {
-        rlutil::locate(28, 10 + _opcion);
-        std::cout << " " << std::endl; ///BORRAMOS EL CURSOR ANTERIOR
+    case 1:
+        system("cls");
+        gestorClientes.cargarCliente();
+        system("pause");
+        break;
 
-        _opcion--; ///MOVEMOS EL CURSOR
+    case 2:
+        system("cls");
+        gestorClientes.modificarCliente();
+        system("pause");
+        break;
 
-        if(_opcion < 0)
-        {
-            _opcion = 5;
-        }
-    }
-    break;
-    case 15: ///ABAJO
-    {
-        rlutil::locate(28, 10 + _opcion);
-        std::cout << " " << std::endl; ///BORRAMOS EL CURSOR ANTERIOR
+    case 3:
+        system("cls");
+        gestorClientes.bajaCliente();
+        system("pause");
+        break;
 
-        _opcion++; ///MOVEMOS EL CURSOR
+    case 4:
+        system("cls");
+        gestorClientes.mostrarTodos();
+        system("pause");
+        break;
 
-        if(_opcion > 5)
-        {
-            _opcion = 0;
-        }
-    }
-    break;
-    case 1: ///ENTER
-    {
-        switch(_opcion)
-        {
-        case 0:
-            rlutil::cls();
-            gestorClientes.cargarCliente();
-            break;
-        case 1:
-            rlutil::cls();
-            gestorClientes.modificarCliente();
-            break;
-        case 2:
-            rlutil::cls();
-            gestorClientes.bajaCliente();
-            break;
-        case 3:
-            rlutil::cls();
-            gestorClientes.mostrarTodos();
-            break;
-        case 4:
-            rlutil::cls();
-            gestorClientes.buscarCliente();
-            break;
-        case 5:
-            rlutil::cls();
-            ejecutarMenuPrincipal();
-            break;
-        }
-    }
-    break;
+    case 5:
+        system("cls");
+        gestorClientes.buscarCliente();
+        system("pause");
+        break;
+
+    case 6:
+        system("cls");
+        gestorClientes.mostrarTodosxCUIT();
+        system("pause");
+        break;
+
+    case 0:
+        return;
+        break;
+
+    default:
+        std::cout << "Error, ingrese una opcion valida" << std::endl;
+        system("pause");
+        break;
     }
 }
 
 void clsMenuPrincipal::ejecutarMenuClientes()
 {
-    do
-    {
-        mostrarMenuClientes();
-        opcionesMenuClientes();
-    }
-    while(!_salir);
+    mostrarMenuClientes();
+    elegirOpcion();
+    opcionesMenuClientes();
 }
 
 ///METODOS MENU VEHICULOS
 void clsMenuPrincipal::mostrarMenuVehiculos()
 {
-    //rlutil::cls();
-    rlutil::hidecursor();
-    rlutil::setBackgroundColor(rlutil::COLOR::BLACK);
-    rlutil::setColor(rlutil::COLOR::WHITE);
-    rlutil::locate(30, 8);
-    std::cout << "VEHICULOS" << std::endl;
-    rlutil::locate(30, 10);
-    std::cout << "CARGAR" << std::endl;
-    rlutil::locate(30, 11);
-    std::cout << "MODIFICAR" << std::endl;
-    rlutil::locate(30, 12);
-    std::cout << "BAJA" << std::endl;
-    rlutil::locate(30, 13);
-    std::cout << "MOSTRAR TODOS" << std::endl;
-    rlutil::locate(30, 14);
-    std::cout << "BUSCAR" << std::endl;
-    rlutil::locate(30, 15);
-    std::cout << " VOLVER" << std::endl;
-    rlutil::locate(28, 10 + _opcion);
-    std::cout << (char)175 << std::endl; ///DIBUJAMOS EL CURSOR
+    system("cls");
+    std::cout << "=== MENU VEHICULOS ===" << std::endl;
+    std::cout << "1-Cargar vehiculo" << std::endl;
+    std::cout << "2-Modificar vehiculo" << std::endl;
+    std::cout << "3-Baja vehiculo" << std::endl;
+    std::cout << "4-Mostrar todos los vehiculos" << std::endl;
+    std::cout << "5-Buscar por PATENTE" << std::endl;
+    std::cout << "0 === VOLVER ===" << std::endl;
 }
 
 void clsMenuPrincipal::opcionesMenuVehiculos()
 {
     clsGestorVehiculo gestorVehiculos;
 
-    switch(rlutil::getkey())
+    switch(_opcion)
     {
-    case 14: ///ARRIBA
-    {
-        rlutil::locate(28, 10 + _opcion);
-        std::cout << " " << std::endl; ///BORRAMOS EL CURSOR ANTERIOR
 
-        _opcion--; ///MOVEMOS EL CURSOR
+    case 1:
+        system("cls");
+        gestorVehiculos.cargarVehiculo();
+        system("pause");
+        break;
 
-        if(_opcion < 0)
-        {
-            _opcion = 5;
-        }
-    }
-    break;
-    case 15: ///ABAJO
-    {
-        rlutil::locate(28, 10 + _opcion);
-        std::cout << " " << std::endl; ///BORRAMOS EL CURSOR ANTERIOR
+    case 2://
+        system("cls");
+        gestorVehiculos.modificarVehiculo();
+        system("pause");
+        break;
 
-        _opcion++; ///MOVEMOS EL CURSOR
+    case 3:
+        system("cls");
+        gestorVehiculos.bajaVehiculo();
+        system("pause");
+        break;
 
-        if(_opcion > 5)
-        {
-            _opcion = 0;
-        }
-    }
-    break;
-    case 1: ///ENTER
-    {
-        switch(_opcion)
-        {
-        case 0:
-            rlutil::cls();
-            gestorVehiculos.cargarVehiculo();
-            break;
-        case 1:
-            rlutil::cls();
-            gestorVehiculos.modificarVehiculo();
-            break;
-        case 2:
-            rlutil::cls();
-            gestorVehiculos.bajaVehiculo();
-            break;
-        case 3:
-            rlutil::cls();
-            gestorVehiculos.mostrarTodos();
-            break;
-        case 4:
-            rlutil::cls();
-            gestorVehiculos.buscarVehiculo();
-            break;
-        case 5:
-            rlutil::cls();
-            ejecutarMenuPrincipal();
-            break;
-        }
-    }
-    break;
+    case 4:
+        system("cls");
+        gestorVehiculos.mostrarTodos();
+        system("pause");
+        break;
+
+    case 5:
+        system("cls");
+        gestorVehiculos.buscarVehiculo();
+        system("pause");
+        break;
+
+    case 0:
+        return;
+        break;
+
+    default:
+        std::cout << "Error, ingrese una opcion valida" << std::endl;
+        system("pause");
     }
 }
 
 void clsMenuPrincipal::ejecutarMenuVehiculos()
 {
-    do
-    {
-        mostrarMenuVehiculos();
-        opcionesMenuVehiculos();
-    }
-    while(!_salir);
+    mostrarMenuVehiculos();
+    elegirOpcion();
+    opcionesMenuVehiculos();
 }
 
 ///METODOS MENU REPARACIONES
 void clsMenuPrincipal::mostrarMenuReparaciones()
 {
-    //rlutil::cls();
-    rlutil::hidecursor();
-    rlutil::setBackgroundColor(rlutil::COLOR::BLACK);
-    rlutil::setColor(rlutil::COLOR::WHITE);
-    rlutil::locate(30, 8);
-    std::cout << "REPARACIONES" << std::endl;
-    rlutil::locate(30, 10);
-    std::cout << "CARGAR" << std::endl;
-    rlutil::locate(30, 11);
-    std::cout << "BUSCAR" << std::endl;
-    rlutil::locate(30, 12);
-    std::cout << "MOSTRAR ACTIVAS" << std::endl;
-    rlutil::locate(30, 13);
-    std::cout << " VOLVER" << std::endl;
-    rlutil::locate(28, 10 + _opcion);
-    std::cout << (char)175 << std::endl; ///DIBUJAMOS EL CURSOR
+    system("cls");
+    std::cout << "=== MENU REPARACIONES ===" << std::endl;
+    std::cout << "1-Cargar reparacion" << std::endl;
+    std::cout << "2-Mostrar reparacion por codigo de reparacion" << std::endl;
+    std::cout << "3-Mostrar todas las reparaciones activas" << std::endl;
+    std::cout << "0 === VOLVER ===" << std::endl;
 }
 
 void clsMenuPrincipal::opcionesMenuReparaciones()
 {
     clsGestorReparacion gestorReparacion;
 
-    switch(rlutil::getkey())
+    switch(_opcion)
     {
-    case 14: ///ARRIBA
-    {
-        rlutil::locate(28, 10 + _opcion);
-        std::cout << " " << std::endl; ///BORRAMOS EL CURSOR ANTERIOR
+    case 1:
+        system("cls");
+        gestorReparacion.cargarReparacion();
+        system("pause");
+        break;
 
-        _opcion--; ///MOVEMOS EL CURSOR
+    case 2:
+        system("cls");
+        gestorReparacion.buscarReparacion();
+        system("pause");
+        break;
 
-        if(_opcion < 0)
-        {
-            _opcion = 3;
-        }
-    }
-    break;
-    case 15: ///ABAJO
-    {
-        rlutil::locate(28, 10 + _opcion);
-        std::cout << " " << std::endl; ///BORRAMOS EL CURSOR ANTERIOR
+    case 3:
+        system("cls");
+        gestorReparacion.mostrarTodas();
+        system("pause");
+        break;
 
-        _opcion++; ///MOVEMOS EL CURSOR
+    case 0:
+        return;
+        break;
 
-        if(_opcion > 3)
-        {
-            _opcion = 0;
-        }
-    }
-    break;
-    case 1: ///ENTER
-    {
-        switch(_opcion)
-        {
-        case 0:
-            rlutil::cls();
-            gestorReparacion.cargarReparacion();
-            break;
-        case 1:
-            rlutil::cls();
-
-            break;
-        case 2:
-            rlutil::cls();
-
-            break;
-        case 3:
-            rlutil::cls();
-            ejecutarMenuPrincipal();
-            break;
-        }
-    }
-    break;
+    default:
+        std::cout << "Error, ingrese una opcion valida" << std::endl;
+        system("pause");
     }
 }
 
 void clsMenuPrincipal::ejecutarMenuReparaciones()
 {
-    do
-    {
-        mostrarMenuReparaciones();
-        opcionesMenuReparaciones();
-    }
-    while(!_salir);
+    mostrarMenuReparaciones();
+    elegirOpcion();
+    opcionesMenuReparaciones();
 }

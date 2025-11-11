@@ -95,10 +95,6 @@ std::string clsReparacion::getFechaEgreso()
     return _egreso.mostrar();
 }
 
-clsFecha clsReparacion::getOBJ_FechaIngreso() { return _ingreso; }
-clsFecha clsReparacion::getOBJ_FechaReparado() { return _reparado; }
-clsFecha clsReparacion::getOBJ_FechaEgreso() { return _egreso; }
-
 bool clsReparacion::getEstado()
 {
     return _estado;

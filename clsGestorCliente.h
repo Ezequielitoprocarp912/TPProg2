@@ -26,7 +26,7 @@ public:
     void cargarCliente();
     void modificarCliente();
     void mostrarTodos();
-    void mostrar_Activos_Inactivos();
     void bajaCliente();
     void buscarCliente();
+    void mostrarTodosxCUIT();
 };

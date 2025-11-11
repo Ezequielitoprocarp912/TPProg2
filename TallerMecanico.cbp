@@ -44,14 +44,13 @@
 		<Unit filename="clsGestorVehiculo.h" />
 		<Unit filename="clsMenuPrincipal.cpp" />
 		<Unit filename="clsMenuPrincipal.h" />
-		<Unit filename="clsPersona.cpp" />
-		<Unit filename="clsPersona.h" />
 		<Unit filename="clsReparacion.cpp" />
 		<Unit filename="clsReparacion.h" />
 		<Unit filename="clsVehiculo.cpp" />
 		<Unit filename="clsVehiculo.h" />
 		<Unit filename="main.cpp" />
-		<Unit filename="rlutil.h" />
-		<Extensions />
+		<Extensions>
+			<lib_finder disable_auto="1" />
+		</Extensions>
 	</Project>
 </CodeBlocks_project_file>

@@ -15,10 +15,7 @@ clsGestorCliente::clsGestorCliente()
 /// MÉTODOS DE MANIPULACIÓN
 bool clsGestorCliente::ev(std::string texto, int minimo, int maximo)
 {
-    //texto.size() DEVUELVE UN VALOR DE TIPO std::string::size_type (SIN SIGNO)
-    // PARA EVITAR ERRORES CON VALORES NEGATIVOS, CASTEAMOS A INT (CON SIGNO)
-    //if((texto.size()>=minimo)&&(texto.size()<=maximo))
-    if (static_cast<int>(texto.size()) >= minimo && static_cast<int>(texto.size()) <= maximo)
+    if((texto.size()>=minimo)&&(texto.size()<=maximo))
     {
         return true;
     }
@@ -135,10 +132,7 @@ void clsGestorCliente::mostrarUnCliente(clsCliente cliente)
     std::cout << "MAIL: " << cliente.getMail() << std::endl;
     std::cout << "DIRECCION: " << cliente.getDireccion() << std::endl;
     std::cout << "TIPO DE CLIENTE: " << (cliente.getTipoCliente() == '1' ? "Particular" : "Empresa") << std::endl; /// operador ternario
-    std::cout << "ESTADO: ";
-    if (cliente.getEstado()==true) {std::cout<< "ACTIVO " <<std::endl;}
-    else if (!cliente.getEstado()) {std::cout<< "INACTIVO " <<std::endl;}
-    std::cout << "-----------------------------------\n";
+    std::cout << "-----------------------------------";
     std::cout << std::endl;
 }
 
@@ -211,7 +205,6 @@ void clsGestorCliente::cargarCliente()
         std::cout << "ERROR: No se pudo guardar el cliente";
 }
 
-///MODIFICAR CLIENTE
 void clsGestorCliente::modificarCliente()
 {
     char opcion;
@@ -234,24 +227,12 @@ void clsGestorCliente::modificarCliente()
 
         system("pause");
 
-        /// MINI VALIDACION :)
-        if (!cliente.getEstado()) {
-            std::cout << "El cliente esta dado de baja y no puede modificarse.";
-            return;
-        }
-
-
-        do {
-        std::cout << "\n 1) Nombre\n 2) Apellido\n 3) Mail\n 4) Telefono\n 5) Direccion\n 6) Tipo de cliente\n 0) SALIR  " << std::endl;
+        std::cout << "\n 1) Nombre\n 2) Apellido\n 3) Mail\n 4) Telefono\n 5) Direccion\n 6) Tipo de cliente\n " << std::endl;
         std::cout << "Ingrese opcion de dato a cambiar: ";
         std::cin >> opcion;
         std::cin.ignore();
-        system("cls");
-
 
         switch(opcion)
-
-
         {
         case '1':
         {
@@ -338,15 +319,10 @@ void clsGestorCliente::modificarCliente()
             tipo=tipoCliente[0];
             cliente.setTipoCliente(tipo);
         }
+
         break;
-
-        case '0': {break;}
-
-        default: system("cls");
         }
 
-        }while (opcion!='0');
-        ///ACA
 
         ///EDITA EL VEHICULO EN SU POSICION CORRESPONDIENTE
         if (guardarEnDiscoCliente(cliente, pos))
@@ -366,34 +342,7 @@ void clsGestorCliente::modificarCliente()
     }
 }
 
-/// ESTO MUESTRA CLIENTES ACTIVOS O INACTIVOS
-void clsGestorCliente::mostrar_Activos_Inactivos()
-{
-    int opcion;
-    clsCliente cliente;
-    FILE *puntero = fopen(_rutaDireccion.c_str(), "rb");
-    if ( puntero == NULL)
-    {
-        std::cout << "No hay clientes cargados actualmente.";
-        return;
-    }
-    std::cout << "1 ACTIVOS - 2 INACTIVOS ";
-    std::cin>>opcion;
-    while (fread(&cliente, sizeof(clsCliente), 1, puntero))
-    {
-        if ( (cliente.getEstado()==true) && (opcion==1) )
-        {
-            mostrarUnCliente(cliente);
-        }
-        else if ( (cliente.getEstado()==false) && (opcion==2) )
-        {
-            mostrarUnCliente(cliente);
-        }
-    }
-}
 
-
-/// ESTO MUESTRA LOS CLIENTES ACTIVOS E INACTIVOS
 void clsGestorCliente::mostrarTodos()
 {
     clsCliente cliente;
@@ -406,7 +355,7 @@ void clsGestorCliente::mostrarTodos()
 
     while (fread(&cliente, sizeof(clsCliente), 1, p))
     {
-        if ( (cliente.getEstado()==true) || (cliente.getEstado()==false))
+        if (cliente.getEstado())
             mostrarUnCliente(cliente);
     }
     fclose(p);
@@ -451,3 +400,141 @@ void clsGestorCliente::buscarCliente()
     else
         std::cout << "El cliente está dado de baja o inactivo";
 }
+
+
+int obtenerCantidadReg (std::string pfile, clsCliente obj)
+{
+    FILE *p = fopen(pfile.c_str(), "rb");
+    if (p == NULL)
+    {
+        std::cout << "No hay datos cargados actualmente.";
+        return 0;
+    }
+
+    int cont = 0;
+    while (fread(&obj, sizeof(clsCliente), 1, p))
+    {
+        if (obj.getEstado())
+        {
+            cont++;
+        }
+    }
+
+    fclose(p);
+
+    return cont;
+}
+
+/*void clsGestorCliente::mostrarTodosxCUIT()
+{
+    //int contClientes = 0;
+
+    clsCliente cliente;
+    FILE *p = fopen(_rutaDireccion.c_str(), "rb");
+    if (p == NULL)
+    {
+        std::cout << "No hay clientes cargados actualmente.";
+        return;
+    }
+
+
+    clsCliente c;
+    int cantidad = obtenerCantidadReg("Clientes.dat", c);
+
+    if (cantidad > 0)
+    {
+        clsCliente *vecClientes = new clsCliente[cantidad];
+    }
+    else
+    {
+        std::cout << "No hay clientes cargados actualmente." << std::endl;
+    }
+
+
+
+    ///GRABO EN EL VECTOR LOS CLIENTES
+    rewind(p);
+    int i = 0;
+    while (fread(&cliente, sizeof(clsCliente), 1, p))
+    {
+        if (cliente.getEstado())
+        {
+            vecClientes[i]=cliente;
+            i++;
+        }
+    }
+
+    fclose(p);
+    delete [] vecClientes;
+}*/
+
+void clsGestorCliente::mostrarTodosxCUIT()
+{
+    clsCliente cliente;
+    FILE *p = fopen(_rutaDireccion.c_str(), "rb");
+    if (p == NULL)
+    {
+        std::cout << "No hay clientes cargados actualmente." << std::endl;
+        return;
+    }
+
+    clsCliente c;
+    int cantidad = obtenerCantidadReg("Clientes.dat", c);
+
+    if (cantidad <= 0)
+    {
+        std::cout << "No hay clientes cargados actualmente." << std::endl;
+        fclose(p);
+        return;
+    }
+
+    // Declarar el puntero antes del if
+    clsCliente *vecClientes = new clsCliente[cantidad];
+
+    // Cargar los clientes activos en el vector
+    rewind(p);
+    int i = 0;
+    while (fread(&cliente, sizeof(clsCliente), 1, p))
+    {
+        if (cliente.getEstado())
+        {
+            vecClientes[i] = cliente;
+            i++;
+        }
+    }
+    fclose(p);
+
+    // Si no hay clientes activos
+    if (i == 0)
+    {
+        std::cout << "No hay clientes activos actualmente." << std::endl;
+        delete[] vecClientes;
+        return;
+    }
+
+    // Ordenar por CUIT (ascendente)
+    for (int a = 0; a < i - 1; a++)
+    {
+        for (int b = a + 1; b < i; b++)
+        {
+            if (vecClientes[a].getCuit() > vecClientes[b].getCuit())
+            {
+                clsCliente aux = vecClientes[a];
+                vecClientes[a] = vecClientes[b];
+                vecClientes[b] = aux;
+            }
+        }
+    }
+
+
+    // Mostrar los clientes
+    std::cout << "=== CLIENTES ORDENADOS POR CUIT (MENOR A MAYOR) ===" << std::endl;
+    for (int j = 0; j < i; j++)
+    {
+        mostrarUnCliente(vecClientes[j]);
+        std::cout << std::endl;
+    }
+
+    delete[] vecClientes;
+}
+

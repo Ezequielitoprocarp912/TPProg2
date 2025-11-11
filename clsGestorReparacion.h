@@ -27,7 +27,6 @@ public:
 
     void cargarReparacion();
     void mostrarTodas();
-    void mostrarPorAnio();
     void buscarReparacion(); // POR CODIGO DE REPARACION
 
 };
