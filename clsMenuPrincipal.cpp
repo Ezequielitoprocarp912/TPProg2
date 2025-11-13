@@ -30,7 +30,7 @@ void clsMenuPrincipal::elegirOpcion()
 {
     std::cout << std::endl;
     std::cout << "INGRESE OPCION: ";
-    _opcion=getch()-'0';
+    _opcion=getche()-'0';
     std::cout << std::endl;
 }
 

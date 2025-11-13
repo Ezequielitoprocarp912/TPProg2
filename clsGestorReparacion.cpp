@@ -215,7 +215,7 @@ void clsGestorReparacion::mostrarUnaReparacion(clsReparacion reparacion)
     std::cout << "DESCRIPCION DE FALLA: " << reparacion.getDescripcionFalla() << std::endl;
     std::cout << "CLIENTE: " << reparacion.getCliente().getCuit() << std::endl;
     std::cout << "VEHICULO: " << reparacion.getVehiculo().getNumeroPatente() << std::endl;
-    std::cout << "FECHA DE INGRESO: " << reparacion.getFechaIngreso() << std::endl;
+    std::cout << "FECHA DE INGRESO: " << reparacion.getFechaIngreso().mostrar() << std::endl;
     std::cout << "-----------------------------------";
     std::cout << std::endl;
 }
@@ -350,15 +350,34 @@ void clsGestorReparacion::buscarReparacion()
     }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
+void clsGestorReparacion::cantidadReparacionesPorFecha(int mes, int anio)
+{
+    clsReparacion reparacion;
+    FILE *file = fopen(_rutaDireccion.c_str(), "rb");
+    if (file == NULL) {
+        std::cout << "No hay reparaciones cargadas actualmente." << std::endl;
+        return;
+    }
+    int contador = 0;
+    while (fread(&reparacion, sizeof(clsReparacion), 1, file)) {
+        if (reparacion.getEstado() == true) {  // Asegurarse de que la reparación esté activa
+            clsFecha fechaIngreso = reparacion.getFechaIngreso();  // Obtener la fecha de ingreso
+            // Comprobar si la fecha de ingreso es válida (no es la fecha predeterminada)
+            if (fechaIngreso.getDia() != 1 || fechaIngreso.getMes() != 1 || fechaIngreso.getAnio() != 1900) {
+                int mesReparacion = fechaIngreso.getMes();
+                int anioReparacion = fechaIngreso.getAnio();
+                // Si el mes y año coinciden, incrementar el contador
+                if (mesReparacion == mes && anioReparacion == anio) {
+                    contador++;
+                }
+            }
+        }
+    }
+    fclose(file);
+    // Mostrar resultado
+    if (contador > 0) {
+        //std::cout << "Cantidad de reparaciones en el mes " << mesToString(mes) << " del año " << anio << ": " << contador << std::endl;
+    } else {
+        //std::cout << "No hay reparaciones en el mes " << mesToString(mes) << " del año " << anio << "." << std::endl;
+    }
+}
