@@ -1,4 +1,5 @@
 #pragma once
+#include "clsGestorCliente.h"
 
 class clsMenuPrincipal
 {
@@ -17,6 +18,10 @@ class clsMenuPrincipal
         void mostrarMenuClientes();
         void opcionesMenuClientes();
         void ejecutarMenuClientes();
+
+        void mostrarSubMenuCUIT();
+        void opcionesSubMenuCUIT(clsGestorCliente &gestorClientes);
+        void ejecutarSubMenuCUIT(clsGestorCliente &gestorClientes);
         //
         void mostrarMenuVehiculos();
         void opcionesMenuVehiculos();

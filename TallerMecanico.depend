@@ -1,22 +1,5 @@
 # depslib dependency file v1.0
-1760528928 source:c:\users\usuario\downloads\tpprog2-main\tpprog2-main\clscliente.cpp
-	"clsCliente.h"
-	<iostream>
-	<cstdio>
-	<cstring>
-
-1760528928 c:\users\usuario\downloads\tpprog2-main\tpprog2-main\clscliente.h
-
-1760538209 source:c:\users\usuario\downloads\tpprog2-main\tpprog2-main\clsfecha.cpp
-	"clsFecha.h"
-
-1760538285 c:\users\usuario\downloads\tpprog2-main\tpprog2-main\clsfecha.h
-	<iostream>
-	<cstdio>
-	<string>
-	<cstring>
-
-1760528928 source:c:\users\usuario\downloads\tpprog2-main\tpprog2-main\clsgestorcliente.cpp
+1762887273 source:c:\users\agust\downloads\tpprog2-main.nueva\clsgestorcliente.cpp
 	<iostream>
 	<cstdio>
 	<limits>
@@ -24,11 +7,41 @@
 	"clsGestorCliente.h"
 	"clsCliente.h"
 
-1760528928 c:\users\usuario\downloads\tpprog2-main\tpprog2-main\clsgestorcliente.h
+1762885490 c:\users\agust\downloads\tpprog2-main.nueva\clsgestorcliente.h
 	<iostream>
 	"clsCliente.h"
 
-1760542069 source:c:\users\usuario\downloads\tpprog2-main\tpprog2-main\clsgestorreparacion.cpp
+1760544292 c:\users\agust\downloads\tpprog2-main.nueva\clscliente.h
+
+1760544292 source:c:\users\agust\downloads\tpprog2-main.nueva\clsgestorvehiculo.cpp
+	<iostream>
+	<cstdio>
+	<limits>
+	<cstring>
+	"clsVehiculo.h"
+	"clsGestorVehiculo.h"
+
+1760544292 c:\users\agust\downloads\tpprog2-main.nueva\clsvehiculo.h
+
+1760544292 c:\users\agust\downloads\tpprog2-main.nueva\clsgestorvehiculo.h
+	"clsVehiculo.h"
+
+1760544292 source:c:\users\agust\downloads\tpprog2-main.nueva\clscliente.cpp
+	"clsCliente.h"
+	<iostream>
+	<cstdio>
+	<cstring>
+
+1760544292 source:c:\users\agust\downloads\tpprog2-main.nueva\clsfecha.cpp
+	"clsFecha.h"
+
+1760544292 c:\users\agust\downloads\tpprog2-main.nueva\clsfecha.h
+	<iostream>
+	<cstdio>
+	<string>
+	<cstring>
+
+1760544292 source:c:\users\agust\downloads\tpprog2-main.nueva\clsgestorreparacion.cpp
 	<cstdio>
 	<limits>
 	<cstring>
@@ -36,47 +49,36 @@
 	"clsGestorVehiculo.h"
 	"clsGestorReparacion.h"
 
-1760528928 c:\users\usuario\downloads\tpprog2-main\tpprog2-main\clsgestorvehiculo.h
-	"clsVehiculo.h"
-
-1760528928 c:\users\usuario\downloads\tpprog2-main\tpprog2-main\clsvehiculo.h
-
-1760538209 c:\users\usuario\downloads\tpprog2-main\tpprog2-main\clsgestorreparacion.h
+1760544292 c:\users\agust\downloads\tpprog2-main.nueva\clsgestorreparacion.h
 	<iostream>
 	"clsReparacion.h"
 
-1760528928 c:\users\usuario\downloads\tpprog2-main\tpprog2-main\clsreparacion.h
+1760544292 c:\users\agust\downloads\tpprog2-main.nueva\clsreparacion.h
 	"clsCliente.h"
 	"clsVehiculo.h"
 	"clsFecha.h"
 
-1760531844 source:c:\users\usuario\downloads\tpprog2-main\tpprog2-main\clsgestorvehiculo.cpp
-	<iostream>
-	<cstdio>
-	<limits>
-	<cstring>
-	"clsVehiculo.h"
-	"clsGestorVehiculo.h"
-
-1760531844 source:c:\users\usuario\downloads\tpprog2-main\tpprog2-main\clsmenuprincipal.cpp
+1762888779 source:c:\users\agust\downloads\tpprog2-main.nueva\clsmenuprincipal.cpp
 	<iostream>
 	<limits>
 	"clsGestorCliente.h"
 	"clsGestorVehiculo.h"
 	"clsGestorReparacion.h"
 	"clsMenuPrincipal.h"
+	<conio.h>
 
-1760528928 c:\users\usuario\downloads\tpprog2-main\tpprog2-main\clsmenuprincipal.h
+1762888564 c:\users\agust\downloads\tpprog2-main.nueva\clsmenuprincipal.h
+	"clsGestorCliente.h"
 
-1760532583 source:c:\users\usuario\downloads\tpprog2-main\tpprog2-main\clsreparacion.cpp
+1760544292 source:c:\users\agust\downloads\tpprog2-main.nueva\clsreparacion.cpp
 	"clsReparacion.h"
 
-1760528928 source:c:\users\usuario\downloads\tpprog2-main\tpprog2-main\clsvehiculo.cpp
+1760544292 source:c:\users\agust\downloads\tpprog2-main.nueva\clsvehiculo.cpp
 	"clsVehiculo.h"
 	<iostream>
 	<cstring>
 
-1760528928 source:c:\users\usuario\downloads\tpprog2-main\tpprog2-main\main.cpp
+1760544292 source:c:\users\agust\downloads\tpprog2-main.nueva\main.cpp
 	<iostream>
 	<cstdio>
 	<string>

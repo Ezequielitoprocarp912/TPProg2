@@ -15,7 +15,9 @@ public:
     bool ev(std::string texto, int minimo, int maximo);
     void cargarUnCliente(clsCliente &);
     void mostrarUnCliente(clsCliente);
-
+    int obtenerCantidadReg (std::string pfile, clsCliente obj);
+    void CUITascendente();
+    void CUITdescendente();
 
     /// MÉTODOS DE ARCHIVO
     bool guardarEnDiscoCliente(clsCliente);
@@ -29,6 +31,4 @@ public:
     void mostrarTodos();
     void bajaCliente();
     void buscarCliente();
-    void mostrarTodosxCUIT();
-
 };
