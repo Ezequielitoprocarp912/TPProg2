@@ -88,29 +88,47 @@ clsFecha::clsFecha(int dia, int mes, int anio)
     setAnio(anio);
 }
 
-
 ///METODOS PUBLICOS
+std::string clsFecha::mesToString()
+{
+    switch (_mes) {
+        case 1: return "Enero";
+        case 2: return "Febrero";
+        case 3: return "Marzo";
+        case 4: return "Abril";
+        case 5: return "Mayo";
+        case 6: return "Junio";
+        case 7: return "Julio";
+        case 8: return "Agosto";
+        case 9: return "Septiembre";
+        case 10: return "Octubre";
+        case 11: return "Noviembre";
+        case 12: return "Diciembre";
+        default: return "Mes inválido"; // Para proteger en caso de que llegue un valor fuera del rango 1-12
+    }
+}
+
 std::string clsFecha::mostrar()
 {
-    return  std::to_string(_dia) + "/" + std::to_string(_mes) + "/" + std::to_string(_anio);
+    return  std::to_string(_dia) + "/" + mesToString() + "/" + std::to_string(_anio);
 }
 
 
 ///SOBRECARGA PARA COMPARAR FECHAS
-bool clsFecha:: operator == (clsFecha clsFecha)
+bool clsFecha:: operator == (clsFecha fecha)
 {
 
-    if(getDia()!=clsFecha.getDia())
+    if(getAnio()!=fecha.getAnio())
     {
         return false;
     }
 
-    if(getMes()!=clsFecha.getMes())
+    if(getMes()!=fecha.getMes())
     {
         return false;
     }
 
-    if(getAnio()!=clsFecha.getAnio())
+    if(getDia()!=fecha.getDia())
     {
         return false;
     }
@@ -118,10 +136,49 @@ bool clsFecha:: operator == (clsFecha clsFecha)
     return true;
 }
 
+bool clsFecha:: operator < (clsFecha fecha)
+{
 
+    if(getAnio()<fecha.getAnio())
+    {
+        return true;
+    }
+
+    if(getMes()<fecha.getMes())
+    {
+        return true;
+    }
+
+    if(getDia()<fecha.getDia())
+    {
+        return true;
+    }
+
+    return false;
+}
+
+bool clsFecha:: operator > (clsFecha fecha)
+{
+
+    if(getAnio()>fecha.getAnio())
+    {
+        return true;
+    }
+
+    if(getMes()>fecha.getMes())
+    {
+        return true;
+    }
+
+    if(getDia()>fecha.getDia())
+    {
+        return true;
+    }
+
+    return false;
+}
 
 /// SI LOS VALORES PARECEN VALIDOS
-
 bool clsFecha::setFecha(int dia, int mes, int anio)
 {
     _dia = dia;

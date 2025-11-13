@@ -35,8 +35,11 @@ class clsFecha
         clsFecha(int, int, int);
 
     ///METODOS PUBLICOS
+    std::string mesToString();
     std::string mostrar();
 
     ///SOBRECARGA PARA COMPARAR FECHAS
         bool operator == (clsFecha);
+        bool operator < (clsFecha);
+        bool operator > (clsFecha);
 };
